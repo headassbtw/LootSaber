@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "LootSaber",
+  "name": "LootSaber",
+  "author": "headassbtw",
+  "version": "0.0.1",
+  "description": "",
+  "gameVersion": "1.13.4",
+  "dependsOn": {
+    "BSIPA": "^4.0.5"
+  },
+  "features": []
+}
