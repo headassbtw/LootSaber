@@ -9,5 +9,11 @@
   "dependsOn": {
     "BSIPA": "^4.0.5"
   },
-  "features": []
+  "loadAfter": [
+    "CustomSaber",
+    "SaberFactory",
+    "CustomNotes"
+  ],
+  "features": [
+  ]
 }

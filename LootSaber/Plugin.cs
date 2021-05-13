@@ -46,7 +46,8 @@ namespace LootSaber
         public void OnApplicationStart()
         {
             Log.Debug("OnApplicationStart");
-            new GameObject("LootSaberController").AddComponent<LootSaberController>();
+            //new GameObject("LootSaberController").AddComponent<LootSaberController>();
+            AssetModDetection.DetectAssetMods();
 
         }
 
