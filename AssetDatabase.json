@@ -1,72 +1,92 @@
 {
   "Tier1": {
-    "Sabers": {
+    "Sabers": [
+      "",
       ""
-    },
-    "Notes": {
+    ],
+    "Notes": [
+      "",
       ""
-    },
-    "Platforms": {
+    ],
+    "Platforms": [
+      "",
       ""
-    },
-    "MenuFonts": {
+    ],
+    "MenuFonts": [
+      "",
       ""
-    }
+    ]
   },
   "Tier2": {
-    "Sabers": {
+    "Sabers": [
+      "",
       ""
-    },
-    "Notes": {
+    ],
+    "Notes": [
+      "",
       ""
-    },
-    "Platforms": {
+    ],
+    "Platforms": [
+      "",
       ""
-    },
-    "MenuFonts": {
+    ],
+    "MenuFonts": [
+      "",
       ""
-    }
+    ]
   },
   "Tier3": {
-    "Sabers": {
+    "Sabers": [
+      "",
       ""
-    },
-    "Notes": {
+    ],
+    "Notes": [
+      "",
       ""
-    },
-    "Platforms": {
+    ],
+    "Platforms": [
+      "",
       ""
-    },
-    "MenuFonts": {
+    ],
+    "MenuFonts": [
+      "",
       ""
-    }
+    ]
   },
   "Tier4": {
-    "Sabers": {
+    "Sabers": [
+      "",
       ""
-    },
-    "Notes": {
+    ],
+    "Notes": [
+      "",
       ""
-    },
-    "Platforms": {
+    ],
+    "Platforms": [
+      "",
       ""
-    },
-    "MenuFonts": {
+    ],
+    "MenuFonts": [
+      "",
       ""
-    }
+    ]
   },
   "Tier5": {
-    "Sabers": {
+    "Sabers": [
+      "",
       ""
-    },
-    "Notes": {
+    ],
+    "Notes": [
+      "",
       ""
-    },
-    "Platforms": {
+    ],
+    "Platforms": [
+      "",
       ""
-    },
-    "MenuFonts": {
+    ],
+    "MenuFonts": [
+      "",
       ""
-    }
+    ]
   }
 }
