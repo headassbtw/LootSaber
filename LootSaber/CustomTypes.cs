@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,16 @@ namespace LootSaber
                 this.MenuFonts = menufonts;
             }
         }
+
+        public struct DownloadRequestResponse
+        {
+            public int tier;
+            public string assetType;
+            public string filePath;
+            public DownloadProgressChangedEventHandler downloadProgress;
+            public DownloadDataCompletedEventHandler downloadComplete;
+        }
+
         public struct DownloadsDatabase
         {
             public Rarity Tier1;
