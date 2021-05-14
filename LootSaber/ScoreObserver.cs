@@ -19,17 +19,24 @@ namespace LootSaber
             BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
 
             FieldInfo rank = type.GetField("_rankText", bindingFlags);
+            FieldInfo pb = type.GetField("_newHighScore", bindingFlags);
             FieldInfo comp = type.GetField("_levelCompletionResults", bindingFlags);
 
             TextMeshProUGUI tmp = (TextMeshProUGUI)rank.GetValue(__instance);
             LevelCompletionResults compres = (LevelCompletionResults)comp.GetValue(__instance);
+            bool personalBest = (bool)pb.GetValue(__instance);
 
-            
 
-            if(compres.fullCombo && !__instance.practice)
-                Plugin.Log.Notice("Full Combo " + tmp.text + " rank.");
-            else
-                Plugin.Log.Notice(tmp.text + " rank.");
+            Plugin.Log.Notice("FC: " + compres.fullCombo.ToString() + " Rank: " + tmp.text + " PB: " + personalBest.ToString());
+
+            if (personalBest && !__instance.practice)
+                Data.Player.currentData.Credits += 1;
+            if (compres.fullCombo && !__instance.practice)
+                Data.Player.currentData.Coins += 2;
+            if (rank.Equals("SS") && !__instance.practice)
+                Data.Player.currentData.Coins += 3;
+            if (rank.Equals("S") && !__instance.practice)
+                Data.Player.currentData.Coins += 1;
         }
     }
 }

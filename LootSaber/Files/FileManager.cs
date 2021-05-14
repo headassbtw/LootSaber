@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static LootSaber.CustomTypes;
@@ -23,18 +24,23 @@ namespace LootSaber.Files
             {
                 case 0:
                     rolledRarity = db.Tier1;
+                    Plugin.Log.Info("Rolled Tier 1");
                     break;
                 case 1:
                     rolledRarity = db.Tier2;
+                    Plugin.Log.Info("Rolled Tier 2");
                     break;
                 case 2:
                     rolledRarity = db.Tier3;
+                    Plugin.Log.Info("Rolled Tier 3");
                     break;
                 case 3:
                     rolledRarity = db.Tier4;
+                    Plugin.Log.Info("Rolled Tier 4");
                     break;
                 case 4:
                     rolledRarity = db.Tier5;
+                    Plugin.Log.Info("Rolled Tier 5");
                     break;
             }
             switch (rnd.Next(0, 3))
@@ -42,21 +48,32 @@ namespace LootSaber.Files
                 case 0:
                     rolledType = rolledRarity.Sabers;
                     amountOfRolledType = rolledType.Count;
+                    Plugin.Log.Info("Rolled Saber");
                     break;
                 case 1:
                     rolledType = rolledRarity.Notes;
                     amountOfRolledType = rolledType.Count;
+                    Plugin.Log.Info("Rolled Note");
                     break;
                 case 2:
                     rolledType = rolledRarity.Platforms;
                     amountOfRolledType = rolledType.Count;
+                    Plugin.Log.Info("Rolled Platform");
                     break;
                 case 3:
                     rolledType = rolledRarity.MenuFonts;
                     amountOfRolledType = rolledType.Count;
+                    Plugin.Log.Info("Rolled Menu Font");
                     break;
             }
             return rolledType.ElementAt(rnd.Next(1, amountOfRolledType));
         }
+
+        internal static void DownloadAsset(string URL)
+        {
+            var client = new WebClient();
+            client.DownloadFile(URL, AssetCache + "\\" + URL.Substring(URL.LastIndexOf("/")));
+        }
+
     }
 }
