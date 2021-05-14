@@ -14,7 +14,8 @@ namespace LootSaber
             public bool Notes;
             public bool Plats;
             public bool MenuFonts;
-            public int Coins;
+            public int XP;
+            public int Level;
         }
         public struct Rarity
         {

@@ -3,5 +3,6 @@
   "Notes": false,
   "Plats": false,
   "MenuFonts": false,
-  "Coins": 2
+  "XP": 0,
+  "Level": 0
 }

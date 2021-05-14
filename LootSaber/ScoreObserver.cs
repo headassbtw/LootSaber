@@ -21,22 +21,24 @@ namespace LootSaber
             FieldInfo rank = type.GetField("_rankText", bindingFlags);
             FieldInfo pb = type.GetField("_newHighScore", bindingFlags);
             FieldInfo comp = type.GetField("_levelCompletionResults", bindingFlags);
-
             TextMeshProUGUI tmp = (TextMeshProUGUI)rank.GetValue(__instance);
             LevelCompletionResults compres = (LevelCompletionResults)comp.GetValue(__instance);
             bool personalBest = (bool)pb.GetValue(__instance);
 
 
-            Plugin.Log.Notice("FC: " + compres.fullCombo.ToString() + " Rank: " + tmp.text + " PB: " + personalBest.ToString());
-
+            int _xpIncrease = (int)Math.Round((decimal)compres.modifiedScore / 10);
+            if(__instance.practice)
+                _xpIncrease = (int)Math.Round((decimal)compres.modifiedScore / 40);
             if (personalBest && !__instance.practice)
-                Data.Player.currentData.Coins += 1;
+                _xpIncrease += 100;
             if (rank.Equals("S") && !__instance.practice)
-                Data.Player.currentData.Coins += 2;
+                _xpIncrease += 200;
             if (compres.fullCombo && !__instance.practice)
-                Data.Player.currentData.Coins += 3;
+                _xpIncrease += 300;
             if (rank.Equals("SS") && !__instance.practice)
-                Data.Player.currentData.Coins += 4;
+                _xpIncrease += 400;
+
+            UI.XP.XPViewController.IncreaseXP(_xpIncrease);
             
         }
     }

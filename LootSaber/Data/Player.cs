@@ -13,7 +13,6 @@ namespace LootSaber.Data
         internal static void FirstTime()
         {
             CustomTypes.PlayerData data = new CustomTypes.PlayerData();
-            data.Coins = 2;
             currentData = data;
         }
         internal static void Load()
