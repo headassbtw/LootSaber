@@ -6,10 +6,10 @@ YOU MAY PUT YOUR OWN ASSETS IN HERE, although PLEASE be honest with the tiers, 1
 
 
 Planned Features:
-change coin system to XP system
-add more UI
+change coin system to XP system,
+add more UI,
 add animations, make it more like lootbox openings in other games
 
 Current Featrures:
-downloading random assets from the db
+downloading random assets from the db,
 hooking song results to get score, FC/S/SS/PB
