@@ -11,7 +11,18 @@ namespace LootSaber.Files
 {
     class JsonReadWrite
     {
-        public static void SaveJson(PlayerData data, string path)
+        public static CustomTypes.PlayerData LoadJson(string path)
+        {
+            using (StreamReader r = new StreamReader(path))
+            {
+                string json = r.ReadToEnd();
+                CustomTypes.PlayerData items = JsonConvert.DeserializeObject<CustomTypes.PlayerData>(json);
+                r.Close();
+                return items;
+            }
+        }
+
+        public static void SaveJson(CustomTypes.PlayerData data, string path)
         {
             using (StreamWriter w = new StreamWriter(path))
             {

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace LootSaber
 {
-    class CustomTypes
+    internal class CustomTypes
     {
-        struct PlayerData
+        public struct PlayerData
         {
-            bool Sabers;
-            bool Notes;
-            bool Plats;
-            bool MenuFonts;
-            int Coins;
-            int Credits;
+            public bool Sabers;
+            public bool Notes;
+            public bool Plats;
+            public bool MenuFonts;
+            public int Coins;
+            public int Credits;
         }
     }
 }

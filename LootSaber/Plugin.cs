@@ -1,13 +1,17 @@
 ﻿using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
+using IPA.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using IPALogger = IPA.Logging.Logger;
+using HarmonyLib;
+using System.Reflection;
 
 namespace LootSaber
 {
@@ -16,6 +20,10 @@ namespace LootSaber
     {
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
+        internal static Harmony harmony;
+
+        internal static string dataFilePath = Path.Combine(UnityGame.UserDataPath, "LootSaber") + "\\playerdata";
+
 
         [Init]
         /// <summary>
@@ -27,7 +35,8 @@ namespace LootSaber
         {
             Instance = this;
             Log = logger;
-            Log.Info("LootSaber initialized.");
+            harmony = new Harmony("com.headassbtw.lootsaber");
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         #region BSIPA Config
@@ -45,17 +54,32 @@ namespace LootSaber
         [OnStart]
         public void OnApplicationStart()
         {
-            Log.Debug("OnApplicationStart");
+            if (!Directory.Exists(Path.Combine(UnityGame.UserDataPath, "LootSaber")))
+                Directory.CreateDirectory(Path.Combine(UnityGame.UserDataPath, "LootSaber"));
+            if (!Directory.Exists(Files.FileManager.AssetCache))
+                Directory.CreateDirectory(Files.FileManager.AssetCache);
+            if (!File.Exists(dataFilePath))
+            {
+                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("LootSaber.Data.DefaultPlayerData.txt"))
+                {
+                    using (var file = new FileStream(dataFilePath, FileMode.Create, FileAccess.Write))
+                    {
+                        resource.CopyTo(file);
+                    }
+                }
+            }
+            Data.Player.Load();
             //new GameObject("LootSaberController").AddComponent<LootSaberController>();
             AssetModDetection.DetectAssetMods();
+            
 
         }
 
         [OnExit]
         public void OnApplicationQuit()
         {
-            Log.Debug("OnApplicationQuit");
-
+            Data.Player.Save();
+            Directory.Delete(Files.FileManager.AssetCache);
         }
     }
 }
