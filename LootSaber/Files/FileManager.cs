@@ -66,13 +66,15 @@ namespace LootSaber.Files
                     Plugin.Log.Info("Rolled Menu Font");
                     break;
             }
-            return rolledType.ElementAt(rnd.Next(1, amountOfRolledType));
+            return rolledType.ElementAt(rnd.Next(0, amountOfRolledType));
         }
 
         internal static void DownloadAsset(string URL)
         {
             var client = new WebClient();
-            client.DownloadFile(URL, AssetCache + "\\" + URL.Substring(URL.LastIndexOf("/")));
+            string _realname = URL.Substring(URL.LastIndexOf("/")).Replace("%20", " ");
+
+            client.DownloadFile(URL, AssetCache + "\\" + _realname);
         }
 
     }
