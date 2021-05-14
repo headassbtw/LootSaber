@@ -22,6 +22,12 @@ namespace LootSaber.UI.ViewControllers
         [UIComponent("1rdpanelmid")] private TextMeshProUGUI tm1 = new TextMeshProUGUI();
         [UIComponent("2rdpanelmid")] private TextMeshProUGUI tm2 = new TextMeshProUGUI();
         [UIComponent("3rdpanelmid")] private TextMeshProUGUI tm3 = new TextMeshProUGUI();
+        [UIComponent("1rdpanedtop")] private TextMeshProUGUI pt1 = new TextMeshProUGUI();
+        [UIComponent("2rdpaneltop")] private TextMeshProUGUI pt2 = new TextMeshProUGUI();
+        [UIComponent("3rdpaneltop")] private TextMeshProUGUI pt3 = new TextMeshProUGUI();
+        [UIComponent("1rdpanelbot")] private TextMeshProUGUI pb1 = new TextMeshProUGUI();
+        [UIComponent("2rdpanelbot")] private TextMeshProUGUI pb2 = new TextMeshProUGUI();
+        [UIComponent("3rdpanelbot")] private TextMeshProUGUI pb3 = new TextMeshProUGUI();
         [UIAction("download-button")]
         void DLButton()
         {
@@ -32,7 +38,27 @@ namespace LootSaber.UI.ViewControllers
             DownloadAsset(assetDB, new Random(23456), 3);
             Task.Delay(27);
         }
-
+        internal void setpanel(int location, int panel, string text)
+        {
+            if (location.Equals(1) && panel.Equals(1))
+                pt1.text = text;
+            if (location.Equals(1) && panel.Equals(2))
+                pt2.text = text;
+            if (location.Equals(1) && panel.Equals(3))
+                pt3.text = text;
+            if (location.Equals(2) && panel.Equals(1))
+                tm1.text = text;
+            if (location.Equals(2) && panel.Equals(2))
+                tm2.text = text;
+            if (location.Equals(2) && panel.Equals(3))
+                tm3.text = text;
+            if (location.Equals(3) && panel.Equals(1))
+                pb1.text = text;
+            if (location.Equals(3) && panel.Equals(2))
+                pb2.text = text;
+            if (location.Equals(3) && panel.Equals(3))
+                pb3.text = text;
+        }
 
         internal async void DownloadAsset(DownloadsDatabase db, Random rng, int slot)
         {
@@ -62,11 +88,14 @@ namespace LootSaber.UI.ViewControllers
                     Plugin.Log.Info("Rolled Tier 5");
                     break;
             }
-            var a = rng.Next(0, 4);
+            int maxtype = 4;
+            if (!AssetModDetection.MenuFonts)
+                maxtype = 3;
+            var a = rng.Next(0, maxtype);
             if (a.Equals(rollcat1))
             {
                 rng = new Random(3294704);
-                a = rng.Next(0, 4);
+                a = rng.Next(0, maxtype);
             }
             rollcat1 = a;
             switch (a)
@@ -74,21 +103,25 @@ namespace LootSaber.UI.ViewControllers
                 case 0:
                     rolledType = rolledRarity.Sabers;
                     amountOfRolledType = rolledType.Count;
+                    setpanel(3, slot, "Saber");
                     Plugin.Log.Info("Rolled Saber");
                     break;
                 case 1:
                     rolledType = rolledRarity.Notes;
                     amountOfRolledType = rolledType.Count;
+                    setpanel(3, slot, "Note");
                     Plugin.Log.Info("Rolled Note");
                     break;
                 case 2:
                     rolledType = rolledRarity.Platforms;
                     amountOfRolledType = rolledType.Count;
+                    setpanel(3, slot, "Platform");
                     Plugin.Log.Info("Rolled Platform");
                     break;
                 case 3:
                     rolledType = rolledRarity.MenuFonts;
                     amountOfRolledType = rolledType.Count;
+                    setpanel(3, slot, "Menu Font");
                     Plugin.Log.Info("Rolled Menu Font");
                     break;
             }
@@ -126,10 +159,21 @@ namespace LootSaber.UI.ViewControllers
                     folder = "UserData\\CustomMenuText\\Fonts";
                     break;
             }
-            client.DownloadFileAsync(
-                   new Uri(URL),
-                   UnityGame.InstallPath + "\\" + folder + "\\" + _realname
-            );
+            try {
+                client.DownloadFileAsync(
+                 new Uri(URL),
+                 UnityGame.InstallPath + "\\" + folder + "\\" + _realname
+                );
+            }
+            catch (Exception)
+            {
+                //if the folder doesn't exist, create it and try again
+                Directory.CreateDirectory(UnityGame.InstallPath + "\\" + folder);
+                client.DownloadFileAsync(
+                 new Uri(URL),
+                 UnityGame.InstallPath + "\\" + folder + "\\" + _realname
+                );
+            }
         }
         void wc_progChange1(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -146,6 +190,5 @@ namespace LootSaber.UI.ViewControllers
             tm2.text = e.ProgressPercentage.ToString() + "%";
             Plugin.Log.Debug("DL progress: " + e.ProgressPercentage.ToString() + "%");
         }
-
     }
 }

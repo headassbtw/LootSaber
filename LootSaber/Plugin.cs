@@ -73,7 +73,9 @@ namespace LootSaber
             //Files.JsonReadWrite.SaveJson2(Path.Combine(UnityGame.UserDataPath, "LootSaber") + "\\yes.json");
             //new GameObject("LootSaberController").AddComponent<LootSaberController>();
             AssetModDetection.DetectAssetMods();
-            UI.UICreator.CreateMenu();
+            if(!AssetModDetection.Sabers && !AssetModDetection.Notes && !AssetModDetection.Platforms && !AssetModDetection.MenuFonts) { }
+            else
+                UI.UICreator.CreateMenu();
 
         }
 
