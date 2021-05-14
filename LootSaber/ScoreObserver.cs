@@ -30,13 +30,14 @@ namespace LootSaber
             Plugin.Log.Notice("FC: " + compres.fullCombo.ToString() + " Rank: " + tmp.text + " PB: " + personalBest.ToString());
 
             if (personalBest && !__instance.practice)
-                Data.Player.currentData.Credits += 1;
-            if (compres.fullCombo && !__instance.practice)
-                Data.Player.currentData.Coins += 2;
-            if (rank.Equals("SS") && !__instance.practice)
-                Data.Player.currentData.Coins += 3;
-            if (rank.Equals("S") && !__instance.practice)
                 Data.Player.currentData.Coins += 1;
+            if (rank.Equals("S") && !__instance.practice)
+                Data.Player.currentData.Coins += 2;
+            if (compres.fullCombo && !__instance.practice)
+                Data.Player.currentData.Coins += 3;
+            if (rank.Equals("SS") && !__instance.practice)
+                Data.Player.currentData.Coins += 4;
+            
         }
     }
 }

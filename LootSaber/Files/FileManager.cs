@@ -13,14 +13,14 @@ namespace LootSaber.Files
     {
         internal static string AssetCache = Path.Combine(UnityGame.UserDataPath, "LootSaber", "Asset Cache");
         internal static DownloadsDatabase assetDB;
+        internal static int rollcat1;
         //rolls a few dice to give you an asset
-        internal static string DiceRoll(DownloadsDatabase db)
+        internal static string DiceRoll(DownloadsDatabase db, Random rng)
         {
-            var rnd = new Random();
             Rarity rolledRarity = new Rarity();
             List<String> rolledType = new List<string>();
             int amountOfRolledType = 0;
-            switch (rnd.Next(0, 4))
+            switch (rng.Next(0, 5))
             {
                 case 0:
                     rolledRarity = db.Tier1;
@@ -43,7 +43,14 @@ namespace LootSaber.Files
                     Plugin.Log.Info("Rolled Tier 5");
                     break;
             }
-            switch (rnd.Next(0, 3))
+            var a = rng.Next(0, 4);
+            if (a.Equals(rollcat1))
+            {
+                rng = new Random(3294704);
+                a = rng.Next(0, 4);
+            }
+            rollcat1 = a;
+            switch (a)
             {
                 case 0:
                     rolledType = rolledRarity.Sabers;
@@ -66,16 +73,10 @@ namespace LootSaber.Files
                     Plugin.Log.Info("Rolled Menu Font");
                     break;
             }
-            return rolledType.ElementAt(rnd.Next(0, amountOfRolledType));
+            return rolledType.ElementAt(rng.Next(0, amountOfRolledType));
         }
 
-        internal static void DownloadAsset(string URL)
-        {
-            var client = new WebClient();
-            string _realname = URL.Substring(URL.LastIndexOf("/")).Replace("%20", " ");
-
-            client.DownloadFile(URL, AssetCache + "\\" + _realname);
-        }
+        
 
     }
 }

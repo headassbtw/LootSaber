@@ -15,7 +15,6 @@ namespace LootSaber
             public bool Plats;
             public bool MenuFonts;
             public int Coins;
-            public int Credits;
         }
         public struct Rarity
         {

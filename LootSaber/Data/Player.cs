@@ -14,7 +14,6 @@ namespace LootSaber.Data
         {
             CustomTypes.PlayerData data = new CustomTypes.PlayerData();
             data.Coins = 2;
-            data.Credits = 4;
             currentData = data;
         }
         internal static void Load()

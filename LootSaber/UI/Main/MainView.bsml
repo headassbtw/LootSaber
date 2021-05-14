@@ -1,0 +1,26 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+
+	<vertical>
+		<horizontal>
+			<vertical>
+				<text text='a' id='1rdpaneltitle'/>
+				<text text='a' id='1rdpanelmid'/>
+				<text text='a' id='1rdpanelauthor'/>
+			</vertical>
+			<vertical>
+				<text text='a' id='2rdpaneltitle'/>
+				<text text='a' id='2rdpanelmid'/>
+				<text text='a' id='2rdpanelauthor'/>
+			</vertical>
+			<vertical>
+				<text text='a' id='3rdpaneltitle'/>
+				<text text='a' id='3rdpanelmid'/>
+				<text text='a' id='3rdpanelauthor'/>
+			</vertical>
+		</horizontal>
+		<horizontal>
+			<primary-button on-click='download-button' text='download'/>
+		</horizontal>
+	</vertical>
+	
+</bg>

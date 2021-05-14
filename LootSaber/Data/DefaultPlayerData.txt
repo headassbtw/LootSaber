@@ -3,6 +3,5 @@
   "Notes": false,
   "Plats": false,
   "MenuFonts": false,
-  "Coins": 2,
-  "Credits": 4
+  "Coins": 2
 }
