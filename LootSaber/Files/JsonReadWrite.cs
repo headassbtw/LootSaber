@@ -20,7 +20,16 @@ namespace LootSaber.Files
             string json = new WebClient().DownloadString("https://raw.githubusercontent.com/headassbtw/LootSaber/master/AssetDatabase.json");
             sw.Stop();
             Plugin.Log.Info("Database downloaded in " + sw.ElapsedMilliseconds + "ms");
-            DownloadsDatabase items = JsonConvert.DeserializeObject<DownloadsDatabase>(json);
+            DownloadsDatabase items = new DownloadsDatabase();
+            try
+            {
+                items = JsonConvert.DeserializeObject<DownloadsDatabase>(json);
+            }
+            catch(Exception e)
+            {
+                Plugin.Log.Notice("Database Download Error!");
+                Plugin.Log.Critical(e.ToString());
+            }
             FileManager.assetDB = items;
         }
         public static CustomTypes.PlayerData LoadJson(string path)

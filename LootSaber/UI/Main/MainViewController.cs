@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -29,24 +30,24 @@ namespace LootSaber.UI.ViewControllers
         [UIComponent("2rdpanelbot")] private TextMeshProUGUI pb2 = new TextMeshProUGUI();
         [UIComponent("3rdpanelbot")] private TextMeshProUGUI pb3 = new TextMeshProUGUI();
 
-        DownloadRequestResponse Item1Request = new DownloadRequestResponse();
-        DownloadRequestResponse Item2Request = new DownloadRequestResponse();
-        DownloadRequestResponse Item3Request = new DownloadRequestResponse();
+        internal static DownloadRequestResponse Item1Request = new DownloadRequestResponse();
+        internal static DownloadRequestResponse Item2Request = new DownloadRequestResponse();
+        internal static DownloadRequestResponse Item3Request = new DownloadRequestResponse();
 
         [UIAction("download-button")]
-        void DLButton()
+        internal void DLButton()
         {
             Item1Request = DownloadAsset(assetDB, new Random(4352));
-            Item1Request.downloadProgress += wc_progChange1;
-            Item1Request.downloadComplete += wc_complete1;
+            Item1Request.client.DownloadProgressChanged += wc_progChange1;
+            Item1Request.client.DownloadFileCompleted += wc_complete1;
             Task.Delay(51);
             Item2Request = DownloadAsset(assetDB, new Random(6745));
-            Item2Request.downloadProgress += wc_progChange2;
-            Item2Request.downloadComplete += wc_complete2;
+            Item2Request.client.DownloadProgressChanged += wc_progChange2;
+            Item2Request.client.DownloadFileCompleted += wc_complete2;
             Task.Delay(43);
             Item3Request = DownloadAsset(assetDB, new Random(23456));
-            Item3Request.downloadProgress += wc_progChange3;
-            Item3Request.downloadComplete += wc_complete3;
+            Item3Request.client.DownloadProgressChanged += wc_progChange3;
+            Item3Request.client.DownloadFileCompleted += wc_complete3;
             Task.Delay(27);
         }
         internal void setpanel(int location, int panel, string text)
@@ -74,30 +75,38 @@ namespace LootSaber.UI.ViewControllers
         
         void wc_progChange1(object sender, DownloadProgressChangedEventArgs e)
         {
-            tm1.text = e.ProgressPercentage.ToString() + "%";
+            setpanel(2, 1, e.ProgressPercentage.ToString() + "%");
             Plugin.Log.Debug("DL progress: " + e.ProgressPercentage.ToString() + "%");
         }
         void wc_progChange3(object sender, DownloadProgressChangedEventArgs e)
         {
-            tm3.text = e.ProgressPercentage.ToString() + "%";
+            setpanel(2, 3, e.ProgressPercentage.ToString() + "%");
             Plugin.Log.Debug("DL progress: " + e.ProgressPercentage.ToString() + "%");
         }
         void wc_progChange2(object sender, DownloadProgressChangedEventArgs e)
         {
-            tm2.text = e.ProgressPercentage.ToString() + "%";
-            Plugin.Log.Debug("DL progress: " + e.ProgressPercentage.ToString() + "%");
+            setpanel(2, 2, e.ProgressPercentage.ToString() + "%");
         }
-        void wc_complete1(object sender, DownloadDataCompletedEventArgs e)
+        void wc_complete1(object sender, AsyncCompletedEventArgs e)
         {
-            setpanel(3, 1, "Tier " + Item1Request.tier.ToString() + " " + Item1Request.assetType);
+            setpanel(1, 1, "Tier " + Item1Request.tier.ToString());
+            setpanel(2, 1, Item1Request.assetType);
+            if (e.Cancelled)
+                setpanel(3, 1, "Cancelled");
         }
-        void wc_complete2(object sender, DownloadDataCompletedEventArgs e)
+        void wc_complete2(object sender, AsyncCompletedEventArgs e)
         {
-            setpanel(3, 2, "Tier " + Item2Request.tier.ToString() + " " + Item2Request.assetType);
+            setpanel(1, 2, "Tier " + Item2Request.tier.ToString());
+            setpanel(2, 2, Item2Request.assetType);
+            if (e.Cancelled)
+                setpanel(3, 2, "Cancelled");
         }
-        void wc_complete3(object sender, DownloadDataCompletedEventArgs e)
+        void wc_complete3(object sender, AsyncCompletedEventArgs e)
         {
-            setpanel(3, 3, "Tier " + Item3Request.tier.ToString() + " " + Item3Request.assetType);
+            setpanel(1, 3, "Tier " + Item3Request.tier.ToString());
+            setpanel(2, 3, Item3Request.assetType);
+            if (e.Cancelled)
+                setpanel(3, 3, "Cancelled");
         }
     }
 }

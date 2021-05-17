@@ -1,0 +1,33 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+	<vertical>
+		<horizontal pref-height='30'>
+			<vertical pref-width='60'>
+				<horizontal pref-width='60' pref-height='20'>
+					<text text='Level:' font-size='20'/>
+					<text text='' id='level-number' font-size='20'/>
+				</horizontal>
+				<horizontal pref-width='60' pref-height='10' bg='round-rect-panel'>
+					<horizontal pref-height='8' pad='1' bg='round-rect-panel' bg-color='cyan' anchor-min-x='0' anchor-min-y='0' anchor-max-y='10' anchor-max-x='60' size-delta-x='1'/>
+				</horizontal>
+			</vertical>
+			<horizontal pref-width='40'>
+				<vertical pref-width='40'>
+					<list id='bonuses-list'/>
+				</vertical>
+			</horizontal>
+		</horizontal>
+		<vertical pref-height='10'>
+			<horizontal pref-width='100'>
+				<horizontal pref-width='20'>
+					<text text='' id='xp-amount' font-size='4'/>
+					<text text='/' font-size='4'/>
+					<text text='10,000' font-size='4'/>
+				</horizontal>
+				<horizontal pref-width='40'>
+					<primary-button text='Loot' on-click='loot-button' active='false'/>
+					<button text='Loot' on-click='loot-button' active='true'/>
+				</horizontal>
+			</horizontal>
+		</vertical>
+	</vertical>
+</bg>

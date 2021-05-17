@@ -98,16 +98,17 @@ namespace LootSaber.Files
             string _realname = URL.Substring(URL.LastIndexOf("/")).Replace("%20", " ");
             if (_realname.Contains("?"))
                 _realname = _realname.Substring(0, _realname.IndexOf("?"));
-            client.DownloadProgressChanged += resp.downloadProgress;
-            client.DownloadDataCompleted += resp.downloadComplete;
+            
 
             string fileSavePath = UnityGame.InstallPath + "\\" + folder + "\\" + _realname;
             try
             {
+                Plugin.Log.Notice("Downloading " + _realname + " From " + URL);
                 client.DownloadFileAsync(
                  new Uri(URL),
                  fileSavePath
                 );
+                resp.client = client;
             }
             catch (Exception)
             {
@@ -117,6 +118,7 @@ namespace LootSaber.Files
                  new Uri(URL),
                  fileSavePath
                 );
+                resp.client = client;
             }
             resp.filePath = fileSavePath;
             return resp;

@@ -12,6 +12,11 @@ using UnityEngine.SceneManagement;
 using IPALogger = IPA.Logging.Logger;
 using HarmonyLib;
 using System.Reflection;
+using SiraUtil;
+using SiraUtil.Zenject;
+using LootSaber.UI;
+using Conf = IPA.Config.Config;
+using IPA.Loader;
 
 namespace LootSaber
 {
@@ -21,8 +26,11 @@ namespace LootSaber
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
         internal static Harmony harmony;
+        internal static Zenjector zenjector { get; private set; }
 
         internal static string dataFilePath = Path.Combine(UnityGame.UserDataPath, "LootSaber") + "\\playerdata";
+
+
 
 
         [Init]
@@ -31,12 +39,18 @@ namespace LootSaber
         /// [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
         /// Only use [Init] with one Constructor.
         /// </summary>
-        public void Init(IPALogger logger)
+        /// 
+        public Plugin(IPALogger log)
         {
             Instance = this;
-            Log = logger;
+            Log = log;
             harmony = new Harmony("com.headassbtw.lootsaber");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
+
+        public void Init(IPALogger logger)
+        {
+            
         }
 
         #region BSIPA Config
@@ -54,6 +68,7 @@ namespace LootSaber
         [OnStart]
         public void OnApplicationStart()
         {
+            SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
             if (!Directory.Exists(Path.Combine(UnityGame.UserDataPath, "LootSaber")))
                 Directory.CreateDirectory(Path.Combine(UnityGame.UserDataPath, "LootSaber"));
             if (!Directory.Exists(Files.FileManager.AssetCache))
@@ -78,10 +93,17 @@ namespace LootSaber
                 UI.UICreator.CreateMenu();
 
         }
-
+        private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene arg1)
+        {
+            if (arg1.name.Contains("Menu")) // Only run in menu scene
+            {
+                UI.XP.XPScreenStarter.yeet();
+            }
+        }
         [OnExit]
         public void OnApplicationQuit()
         {
+            SceneManager.activeSceneChanged -= SceneManagerOnActiveSceneChanged;
             Data.Player.Save();
             Directory.Delete(Files.FileManager.AssetCache);
         }

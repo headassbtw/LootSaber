@@ -17,7 +17,7 @@ namespace LootSaber.Data
         }
         internal static void Load()
         {
-            Files.JsonReadWrite.LoadJson(Plugin.dataFilePath);
+            currentData = Files.JsonReadWrite.LoadJson(Plugin.dataFilePath);
         }
         internal static void Save()
         {

@@ -34,13 +34,58 @@ namespace LootSaber
             }
         }
 
+        public enum bonus
+        {
+            FC,
+            SS,
+            S,
+            PB
+        }
+        public struct AfterLevelBonus
+        {
+            public string name;
+            public string imagePath;
+            public int scoreBonus;
+
+            public AfterLevelBonus(bonus b)
+            {
+                this.name = "Placeholder";
+                this.scoreBonus = 0;
+                this.imagePath = "Nah";
+
+                switch (b)
+                {
+                    case bonus.FC:
+                        this.name = "Full Combo";
+                        this.imagePath = "LootSaber.UI.BonusIcons.FC.png";
+                        this.scoreBonus = 1000;
+                        break;
+                    case bonus.SS:
+                        this.name = "SS Rank";
+                        this.imagePath = "LootSaber.UI.BonusIcons.SS.png";
+                        this.scoreBonus = 500;
+                        break;
+                    case bonus.S:
+                        this.name = "S Rank";
+                        this.imagePath = "LootSaber.UI.BonusIcons.S.png";
+                        this.scoreBonus = 250;
+                        break;
+                    case bonus.PB:
+                        this.name = "Personal Best";
+                        this.imagePath = "LootSaber.UI.BonusIcons.PB.png";
+                        this.scoreBonus = 2000;
+                        break;
+                }
+            }
+        }
+
+
         public struct DownloadRequestResponse
         {
             public int tier;
             public string assetType;
             public string filePath;
-            public DownloadProgressChangedEventHandler downloadProgress;
-            public DownloadDataCompletedEventHandler downloadComplete;
+            public WebClient client;
         }
 
         public struct DownloadsDatabase

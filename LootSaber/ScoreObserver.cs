@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
 using TMPro;
+using static LootSaber.CustomTypes;
 
 namespace LootSaber
 {
@@ -24,22 +25,30 @@ namespace LootSaber
             TextMeshProUGUI tmp = (TextMeshProUGUI)rank.GetValue(__instance);
             LevelCompletionResults compres = (LevelCompletionResults)comp.GetValue(__instance);
             bool personalBest = (bool)pb.GetValue(__instance);
-
-
             int _xpIncrease = (int)Math.Round((decimal)compres.modifiedScore / 10);
+
+            var bonuses = new List<AfterLevelBonus>();
+
             if(__instance.practice)
                 _xpIncrease = (int)Math.Round((decimal)compres.modifiedScore / 40);
             if (personalBest && !__instance.practice)
-                _xpIncrease += 100;
+                bonuses.Add(new AfterLevelBonus(bonus.PB));
             if (rank.Equals("S") && !__instance.practice)
-                _xpIncrease += 200;
+                bonuses.Add(new AfterLevelBonus(bonus.S));
             if (compres.fullCombo && !__instance.practice)
-                _xpIncrease += 300;
+                bonuses.Add(new AfterLevelBonus(bonus.FC));
             if (rank.Equals("SS") && !__instance.practice)
-                _xpIncrease += 400;
+                bonuses.Add(new AfterLevelBonus(bonus.SS));
 
-            UI.XP.XPViewController.IncreaseXP(_xpIncrease);
-            
         }
     }
+    [HarmonyPatch(typeof(ResultsViewController), "ContinueButtonPressed")]
+    static class ScoreContinuePatch
+    {
+        static void Postfix(ResultsViewController __instance)
+        {
+            UI.XP.XPScreen.ClearBonuses();
+        }
+    }
+
 }
