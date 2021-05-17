@@ -12,11 +12,11 @@ namespace LootSaber.UI.XP
 {
     class XPScreenStarter
     {
+        internal static FloatingScreen xpFloatingScreen = FloatingScreen.CreateFloatingScreen(new Vector2(100, 40), false, new Vector3(1, 3.25f, 3.75f), Quaternion.Euler(0, 16.10f, 0), 175f, false);
         internal static void yeet()
         {
-            var _xpv = BeatSaberUI.CreateViewController<UI.XP.XPScreen>();
-            var myFloatingScreen = FloatingScreen.CreateFloatingScreen(new Vector2(100,40), false, new Vector3(1,3.1f,3.75f), Quaternion.Euler(0,16.10f,0), 175f, false);
-            myFloatingScreen.SetRootViewController(_xpv, animationType: AnimationType.None);
+            var _xpv = BeatSaberUI.CreateViewController<XPScreen>();
+            xpFloatingScreen.SetRootViewController(_xpv, animationType: AnimationType.None);
         }
     }
 }

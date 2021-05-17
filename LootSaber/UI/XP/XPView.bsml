@@ -12,7 +12,7 @@
 			</vertical>
 			<horizontal pref-width='40'>
 				<vertical pref-width='40'>
-					<list id='bonuses-list'/>
+					<list id='bonuses-list' visible-cells='3' cell-size='10' select-cell='bonusSelect' list-width='40'/>
 				</vertical>
 			</horizontal>
 		</horizontal>

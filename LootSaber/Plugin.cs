@@ -86,7 +86,7 @@ namespace LootSaber
             Data.Player.Load();
             Files.JsonReadWrite.DownloadAssetDatabase();
             //Files.JsonReadWrite.SaveJson2(Path.Combine(UnityGame.UserDataPath, "LootSaber") + "\\yes.json");
-            //new GameObject("LootSaberController").AddComponent<LootSaberController>();
+            new GameObject("LootSaberController").AddComponent<LootSaberController>();
             AssetModDetection.DetectAssetMods();
             if(!AssetModDetection.Sabers && !AssetModDetection.Notes && !AssetModDetection.Platforms && !AssetModDetection.MenuFonts) { }
             else
@@ -95,7 +95,7 @@ namespace LootSaber
         }
         private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene arg1)
         {
-            if (arg1.name.Contains("Menu")) // Only run in menu scene
+            if (arg1.name.Contains("Menu") && !UI.XP.XPScreen.Instance) // Only run in menu scene
             {
                 UI.XP.XPScreenStarter.yeet();
             }

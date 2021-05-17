@@ -39,7 +39,8 @@ namespace LootSaber
             FC,
             SS,
             S,
-            PB
+            PB,
+            YT
         }
         public struct AfterLevelBonus
         {
@@ -74,6 +75,11 @@ namespace LootSaber
                         this.name = "Personal Best";
                         this.imagePath = "LootSaber.UI.BonusIcons.PB.png";
                         this.scoreBonus = 2000;
+                        break;
+                    case bonus.YT:
+                        this.name = "You Tried";
+                        this.imagePath = "LootSaber.UI.BonusIcons.YT.png";
+                        this.scoreBonus = 69;
                         break;
                 }
             }

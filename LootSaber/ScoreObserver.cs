@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using HarmonyLib;
 using TMPro;
 using static LootSaber.CustomTypes;
+using static LootSaber.Extensions.InternalFunctionExtensions;
+using static LootSaber.Extensions.MovementExtensions;
 
 namespace LootSaber
 {
@@ -16,6 +18,8 @@ namespace LootSaber
     {
         static void Postfix(ResultsViewController __instance)
         {
+            UnityEngine.Transform fs = UI.XP.XPScreenStarter.xpFloatingScreen.transform;
+            fs.Move(fs.position.x, 2.55f, fs.position.z, 0.1f);
             Type type = __instance.GetType();
             BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
 
@@ -29,6 +33,10 @@ namespace LootSaber
 
             var bonuses = new List<AfterLevelBonus>();
 
+
+
+            if (compres.levelEndStateType == LevelCompletionResults.LevelEndStateType.Failed)
+                bonuses.Add(new AfterLevelBonus(bonus.YT));
             if(__instance.practice)
                 _xpIncrease = (int)Math.Round((decimal)compres.modifiedScore / 40);
             if (personalBest && !__instance.practice)
@@ -39,15 +47,19 @@ namespace LootSaber
                 bonuses.Add(new AfterLevelBonus(bonus.FC));
             if (rank.Equals("SS") && !__instance.practice)
                 bonuses.Add(new AfterLevelBonus(bonus.SS));
-
+            UI.XP.XPScreen.FuckWithScoreAndLevel(_xpIncrease,bonuses.BonusScore());
+            UI.XP.XPScreen.Instance.AddBonuses(bonuses);
         }
     }
     [HarmonyPatch(typeof(ResultsViewController), "ContinueButtonPressed")]
     static class ScoreContinuePatch
     {
-        static void Postfix(ResultsViewController __instance)
+        static void Prefix(ResultsViewController __instance)
         {
-            UI.XP.XPScreen.ClearBonuses();
+            UnityEngine.Transform fs = UI.XP.XPScreenStarter.xpFloatingScreen.transform;
+            fs.Move(fs.position.x, 3.25f, fs.position.z, 0.75f, EasingFunction.Ease.EaseInOutQuad);
+            UI.XP.XPScreen.Instance.ClearBonuses();
+            
         }
     }
 

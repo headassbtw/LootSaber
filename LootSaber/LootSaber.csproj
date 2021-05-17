@@ -142,6 +142,9 @@
     <Compile Include="AssetModDetection.cs" />
     <Compile Include="CustomTypes.cs" />
     <Compile Include="Data\Player.cs" />
+    <Compile Include="Extensions\EasingFunctions.cs" />
+    <Compile Include="Extensions\InternalFunctionExtensions.cs" />
+    <Compile Include="Extensions\MovementExtensions.cs" />
     <Compile Include="Extensions\TextureExtensions.cs" />
     <Compile Include="Files\FileManager.cs" />
     <Compile Include="Files\JsonReadWrite.cs" />
@@ -178,7 +181,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Data\DefaultPlayerData.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="UI\BonusIcons\YT.png" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\BonusIcons\FC.png" />
     <EmbeddedResource Include="UI\BonusIcons\PB.png" />
