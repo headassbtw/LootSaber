@@ -28,7 +28,7 @@ namespace LootSaber.UI.XP
     [HotReload(RelativePathToLayout = @"..\UI\XP\XPView.bsml")]
     internal class XPScreen : BSMLResourceViewController
     {
-        private bool back = true;
+        internal static bool uh = false;
         public override string ResourceName => "LootSaber.UI.XP.XPView.bsml";
         internal static XPScreen Instance { get; private set; }
         [UIComponent("xp-amount")] private TextMeshProUGUI xpAmount;
@@ -36,10 +36,17 @@ namespace LootSaber.UI.XP
 
         [UIComponent("bonuses-list")] public CustomListTableData bonusList = new CustomListTableData();
 
+        [UIComponent("bLootButton")] internal Button blueUIButton;
+        [UIComponent("gLootButton")] internal Button greyUIButton;
+
+
         [UIAction("loot-button")]
         internal void OpenMainUI()
         {
-
+            if (uh)
+                blueUIButton.enabled = false;
+            if (!uh)
+                greyUIButton.enabled = false;
             AssetPreviews.LeftPreviewViewController.StaticPP();
             AssetPreviews.MiddlePreviewViewController.StaticPP();
             AssetPreviews.RightPreviewViewController.StaticPP();

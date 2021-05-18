@@ -16,6 +16,7 @@ using static LootSaber.CustomTypes;
 using static LootSaber.Files.FileManager;
 using static LootSaber.UI.Asset_Viewing.AssetInstantiatePreviewing;
 using static LootSaber.UI.Asset_Viewing.FloatingUI;
+using LootSaber.UI.XP;
 using LootSaber.UI.AssetPreviews;
 using UnityEngine;
 using LootSaber.UI.Asset_Viewing;
@@ -33,6 +34,11 @@ namespace LootSaber.UI.ViewControllers
         [UIAction("go-back")]
         internal void ReMenu()
         {
+            if (XPScreen.uh)
+                XPScreen.Instance.blueUIButton.enabled = true;
+            if (!XPScreen.uh)
+                XPScreen.Instance.greyUIButton.enabled = true;
+
             BaseGameUiHandler.Instance.PresentGameUI();
             yeetem();
             FloatingUI.unmiddle();
