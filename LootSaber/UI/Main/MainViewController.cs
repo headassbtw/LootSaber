@@ -28,11 +28,15 @@ namespace LootSaber.UI.ViewControllers
     {
         public override string ResourceName => "LootSaber.UI.Main.MainView.bsml";
 
+        internal static bool Asset1Complete;
+        internal static bool Asset2Complete;
+        internal static bool Asset3Complete;
+
         internal static DownloadRequestResponse Item1Request = new DownloadRequestResponse();
         internal static DownloadRequestResponse Item2Request = new DownloadRequestResponse();
         internal static DownloadRequestResponse Item3Request = new DownloadRequestResponse();
 
-        [UIComponent("dl-button")] internal Button DlButton;
+        [UIComponent("dl-button")] internal static Button DlButton;
         [UIValue("pendingNumber")]
         internal string PendingNumber
         {
@@ -40,7 +44,18 @@ namespace LootSaber.UI.ViewControllers
             set
             {
                 Data.Player.currentData.PendingBoxes = Int32.Parse(value);
+                
             }
+        }
+
+        internal static void CheckPending()
+        {
+            DlButton.interactable = (Data.Player.currentData.PendingBoxes > 0);
+        }
+
+        internal static void checkButtonEnable()
+        {
+            DlButton.interactable = (Asset1Complete && Asset2Complete && Asset3Complete);
         }
 
         [UIAction("go-back")]
@@ -60,7 +75,13 @@ namespace LootSaber.UI.ViewControllers
         [UIAction("download-button")]
         internal void DLButton()
         {
+            Data.Player.currentData.PendingBoxes -= 1;
+            
+            CheckPending();
             yeetem();
+            Asset1Complete = false;
+            Asset2Complete = false;
+            Asset3Complete = false;
             var rnd = new System.Random();
             FloatingUI.PLS.transform.SetPositionAndRotation(LeftP, Quaternion.Euler(30f, 0, 0));
             LeftPreviewViewController.Download();

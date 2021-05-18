@@ -71,6 +71,7 @@ namespace LootSaber.UI.XP
             BaseGameUiHandler.Instance.DismissGameUI();
             FloatingUI.middle();
             FloatingUI.Previews();
+            UI.ViewControllers.MainViewController.CheckPending();
         }
         internal void ClearBonuses()
         {

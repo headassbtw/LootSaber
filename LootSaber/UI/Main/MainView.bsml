@@ -14,7 +14,7 @@
 		</horizontal>
 		<horizontal pref-width='60' pref-height='10'>
 			<horizontal pref-width='30'>
-				<primary-button on-click='download-button' text='download' id='dl-button'/>
+				<primary-button on-click='download-button' text='Download' id='dl-button'/>
 			</horizontal>
 			<horizontal pref-width='30'>
 				<button on-click='go-back' text='Back'/>

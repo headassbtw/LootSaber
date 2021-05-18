@@ -53,6 +53,8 @@ namespace LootSaber.UI.AssetPreviews
             Instance.bottomPanel.text = downloadRequest.filePath.Substring(downloadRequest.filePath.LastIndexOf("\\") + 1);
             ShowPreviewAsset(downloadRequest, 1);
             acceptButton.interactable = true;
+            UI.ViewControllers.MainViewController.Asset1Complete = true;
+            UI.ViewControllers.MainViewController.checkButtonEnable();
         }
 
         internal static void StaticPP()
