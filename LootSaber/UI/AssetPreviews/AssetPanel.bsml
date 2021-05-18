@@ -1,0 +1,14 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+	<vertical bg='round-rect-panel' pref-width='30' pref-height='40'>
+		<horizontal pref-height='10'>
+			<text text='a' id='paneltop'/>
+		</horizontal>
+		<horizontal pref-height='10'>
+			<text text='a' id='panelmid'/>
+		</horizontal>
+		<horizontal pref-height='10'>
+			<text text='a' id='panelbot'/>
+		</horizontal>
+		<primary-button text='Accept' on-click='accept-asset' interactable='false' pref-height='10'/>
+	</vertical>
+</bg>

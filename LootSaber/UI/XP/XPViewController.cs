@@ -40,11 +40,16 @@ namespace LootSaber.UI.XP
         internal void OpenMainUI()
         {
 
+            AssetPreviews.LeftPreviewViewController.StaticPP();
+            AssetPreviews.MiddlePreviewViewController.StaticPP();
+            AssetPreviews.RightPreviewViewController.StaticPP();
+
             if(BaseGameUiHandler.Instance == null)
                 BaseGameUiHandler.Instance = new BaseGameUiHandler(GameObject.Find("ScreenSystem").GetComponent<HierarchyManager>());
 
             BaseGameUiHandler.Instance.DismissGameUI();
             FloatingUI.middle();
+            FloatingUI.Previews();
         }
         internal void ClearBonuses()
         {

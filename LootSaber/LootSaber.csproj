@@ -165,6 +165,9 @@
     <Compile Include="ScoreObserver.cs" />
     <Compile Include="UI\Asset Viewing\AssetInstantiatePreviewing.cs" />
     <Compile Include="UI\Asset Viewing\FloatingUI.cs" />
+    <Compile Include="UI\AssetPreviews\RightPreviewViewController.cs" />
+    <Compile Include="UI\AssetPreviews\MiddlePreviewViewController.cs" />
+    <Compile Include="UI\AssetPreviews\LeftPreviewViewController.cs" />
     <Compile Include="UI\LootSaberFlowCoordinator.cs" />
     <Compile Include="UI\Main\MainViewController.cs" />
     <Compile Include="UI\ManageBaseUI.cs" />
@@ -180,6 +183,7 @@
     <None Include="LootSaber.csproj.user" Condition="Exists('LootSaber.csproj.user')" />
     <EmbeddedResource Include="UI\Main\MainView.bsml" />
     <EmbeddedResource Include="UI\XP\XPView.bsml" />
+    <EmbeddedResource Include="UI\AssetPreviews\AssetPanel.bsml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BeatSaberModdingTools.Tasks">

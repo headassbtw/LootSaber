@@ -1,23 +1,6 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
 
 	<vertical>
-		<horizontal pref-width='90'>
-			<vertical bg='round-rect-panel' pref-width='30'>
-				<text text='a' id='1rdpaneltop'/>
-				<text text='a' id='1rdpanelmid'/>
-				<text text='a' id='1rdpanelbot'/>
-			</vertical>
-			<vertical bg='round-rect-panel' pref-width='30'>
-				<text text='a' id='2rdpaneltop'/>
-				<text text='a' id='2rdpanelmid'/>
-				<text text='a' id='2rdpanelbot'/>
-			</vertical>
-			<vertical bg='round-rect-panel' pref-width='30'>
-				<text text='a' id='3rdpaneltop'/>
-				<text text='a' id='3rdpanelmid'/>
-				<text text='a' id='3rdpanelbot'/>
-			</vertical>
-		</horizontal>
 		<horizontal>
 			<primary-button on-click='download-button' text='download'/>
 			<button on-click='go-back' text='Back'/>
