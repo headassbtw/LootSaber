@@ -150,6 +150,7 @@
     <Compile Include="Extensions\EasingFunctions.cs" />
     <Compile Include="Extensions\InternalFunctionExtensions.cs" />
     <Compile Include="Extensions\MovementExtensions.cs" />
+    <Compile Include="Extensions\TextFormattingExtensions.cs" />
     <Compile Include="Extensions\TextureExtensions.cs" />
     <Compile Include="Files\FileManager.cs" />
     <Compile Include="Files\JsonReadWrite.cs" />

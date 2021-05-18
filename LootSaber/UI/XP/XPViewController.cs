@@ -36,7 +36,7 @@ namespace LootSaber.UI.XP
         internal static XPScreen Instance { get; private set; }
         [UIValue("xp-amount")] private string xpAmount
         {
-            get => Data.Player.currentData.XP.ToString();
+            get => Data.Player.currentData.XP.ToString().AddCommas();
             set
             {
                 Data.Player.currentData.XP = Int32.Parse(value);
@@ -44,7 +44,7 @@ namespace LootSaber.UI.XP
         }
         [UIValue("level-number")] private string levelNumber
         {
-            get => Data.Player.currentData.Level.ToString();
+            get => Data.Player.currentData.Level.ToString().AddCommas();
             set
             {
                 Data.Player.currentData.Level = Int32.Parse(value);
@@ -103,7 +103,7 @@ namespace LootSaber.UI.XP
             foreach(var bonus in bonuses)
             {
                 CustomListTableData.CustomCellInfo tempCell = new CustomListTableData.CustomCellInfo(bonus.name);
-                tempCell.subtext = "+" + bonus.scoreBonus.ToString() + " XP";
+                tempCell.subtext = "+" + bonus.scoreBonus.ToString().AddCommas() + " XP";
                 tempCell.icon = TextureExtensions.FromEmbedded(bonus.imagePath);
                 bonusList.data.Add(tempCell);
             }
