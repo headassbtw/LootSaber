@@ -17,9 +17,13 @@ namespace LootSaber.UI.Asset_Viewing
     {
         internal static FloatingScreen middleScreen = FloatingScreen.CreateFloatingScreen(new Vector2(100, 20), false, new Vector3(0, 0.4f, 2.75f), Quaternion.Euler(65f, 0, 0), 0f, true);
 
-        internal static FloatingScreen PLS = FloatingScreen.CreateFloatingScreen(new Vector2(30, 40), false, new Vector3(-0.67f, 0.87f, 3.5f), Quaternion.Euler(30f, -25, 0), 0f, true);
-        internal static FloatingScreen PMS = FloatingScreen.CreateFloatingScreen(new Vector2(30, 40), false, new Vector3(0, 0.4f, 3.5f), Quaternion.Euler(30f, 0, 0), 0f, true);
-        internal static FloatingScreen PRS = FloatingScreen.CreateFloatingScreen(new Vector2(30, 40), false, new Vector3(0.49f, 0.87f, 3.5f), Quaternion.Euler(30f, 25, 0), 0f, true);
+        internal static Vector3 LeftP = new Vector3(-0.65f, 0.87f, 3.5f);
+        internal static Vector3 MiddleP = new Vector3(0, 0.87f, 3.5f);
+        internal static Vector3 RightP = new Vector3(0.65f, 0.87f, 3.5f);
+
+        internal static FloatingScreen PLS = FloatingScreen.CreateFloatingScreen(new Vector2(30, 40), true, LeftP, Quaternion.Euler(30f, 0, 0), 0f, false);
+        internal static FloatingScreen PMS = FloatingScreen.CreateFloatingScreen(new Vector2(30, 40), true, MiddleP, Quaternion.Euler(30f, 0, 0), 0f, false);
+        internal static FloatingScreen PRS = FloatingScreen.CreateFloatingScreen(new Vector2(30, 40), true, RightP, Quaternion.Euler(30f, 0, 0), 0f, false);
 
         
 
@@ -44,10 +48,13 @@ namespace LootSaber.UI.Asset_Viewing
             var _rv = BeatSaberUI.CreateViewController<RightPreviewViewController>();
             PLS.SetRootViewController(_lv, animationType: AnimationType.In);
             PLS.enabled = true;
+            PLS.HandleSide = FloatingScreen.Side.Bottom;
             PMS.SetRootViewController(_mv, animationType: AnimationType.In);
             PMS.enabled = true;
+            PMS.HandleSide = FloatingScreen.Side.Bottom;
             PRS.SetRootViewController(_rv, animationType: AnimationType.In);
             PRS.enabled = true;
+            PRS.HandleSide = FloatingScreen.Side.Bottom;
         }
         internal static void unPreviews()
         {

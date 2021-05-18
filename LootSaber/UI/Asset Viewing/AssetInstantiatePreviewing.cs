@@ -11,9 +11,9 @@ namespace LootSaber.UI.Asset_Viewing
 {
     class AssetInstantiatePreviewing
     {
-        static Vector3 left = new Vector3(-0.67f, 0.87f, 3.5f);
-        static Vector3 middle = new Vector3(0, 0.87f, 3.5f);
-        static Vector3 right = new Vector3(0.49f, 0.87f, 3.5f);
+        internal static Vector3 left = new Vector3(-0.65f, 1.5f, 4.0f);
+        internal static Vector3 middle = new Vector3(0, 1.5f, 4.0f);
+        internal static Vector3 right = new Vector3(0.65f, 1.5f, 4.0f);
         static List<GameObject> previewObjects = new List<GameObject>();
 
         internal static void ShowPreviewAsset(DownloadRequestResponse downloadRequest, int position)
@@ -39,17 +39,21 @@ namespace LootSaber.UI.Asset_Viewing
             ab.Unload(false);
             var NoteRight = note.transform.Find("NoteRight").gameObject;
             GameObject nnote = GameObject.Instantiate(NoteRight);
+            nnote.name = "LootSaberNotePreview";
             nnote.transform.localScale *= 0.4f;
             switch (position)
             {
                 case 1:
                     nnote.gameObject.transform.SetPositionAndRotation(left, Quaternion.Euler(0, 270, 0));
+                    nnote.transform.SetParent(FloatingUI.PLS.transform);
                     break;
                 case 2:
                     nnote.gameObject.transform.SetPositionAndRotation(middle, Quaternion.Euler(0, 270, 0));
+                    nnote.transform.SetParent(FloatingUI.PMS.transform);
                     break;
                 case 3:
                     nnote.gameObject.transform.SetPositionAndRotation(right, Quaternion.Euler(0, 270, 0));
+                    nnote.transform.SetParent(FloatingUI.PRS.transform);
                     break;
             }
             return nnote;
@@ -57,23 +61,36 @@ namespace LootSaber.UI.Asset_Viewing
 
         internal static GameObject ShowSaber(DownloadRequestResponse downloadRequest, int position)
         {
-            AssetBundle ab = AssetBundle.LoadFromFile(downloadRequest.filePath);
-            var Sabers = ab.LoadAsset<GameObject>("_CustomSaber");
-            ab.Unload(false);
+            AssetBundle ab = null;
+            GameObject Sabers = null;
+            try
+            {
+                ab = AssetBundle.LoadFromFile(downloadRequest.filePath);
+                Sabers = ab.LoadAsset<GameObject>("_CustomSaber");
+                //THIS IS HOW YOU DO SHIT WITH ASSETBUNDLES YOU FUCK
+                ab.Unload(false);
+                //HOW HARD WAS THAT? HUH? HUH?
+            }
+            catch (Exception)
+            { //fuck you CustomSabers for not unloading your fucking assetbundles
+            }
             GameObject saber = GameObject.Instantiate(Sabers);
 
             saber.name = "LootSaberPreviewSaber";
-            GameObject.Find("LootSaberPreviewSaber/RightSaber").SetActive(false);
+            GameObject.Destroy(saber.transform.Find("RightSaber").gameObject);
             switch (position)
             {
                 case 1:
                     GameObject.Find("LootSaberPreviewSaber/LeftSaber").gameObject.transform.SetPositionAndRotation(left, Quaternion.Euler(270, 0, 0));
+                    saber.gameObject.transform.SetParent(FloatingUI.PLS.transform);
                     break;
                 case 2:
                     GameObject.Find("LootSaberPreviewSaber/LeftSaber").gameObject.transform.SetPositionAndRotation(middle, Quaternion.Euler(270, 0, 0));
+                    saber.gameObject.transform.SetParent(FloatingUI.PMS.transform);
                     break;
                 case 3:
                     GameObject.Find("LootSaberPreviewSaber/LeftSaber").gameObject.transform.SetPositionAndRotation(right, Quaternion.Euler(270, 0, 0));
+                    saber.gameObject.transform.SetParent(FloatingUI.PRS.transform);
                     break;
             }
             
@@ -104,12 +121,15 @@ namespace LootSaber.UI.Asset_Viewing
             {
                 case 1:
                     textObj.transform.position = left;
+                    textObj.gameObject.transform.SetParent(FloatingUI.PLS.transform);
                     break;
                 case 2:
                     textObj.transform.position = middle;
+                    textObj.gameObject.transform.SetParent(FloatingUI.PMS.transform);
                     break;
                 case 3:
                     textObj.transform.position = right;
+                    textObj.gameObject.transform.SetParent(FloatingUI.PRS.transform);
                     break;
             }
             textObj.SetActive(true);
@@ -119,6 +139,13 @@ namespace LootSaber.UI.Asset_Viewing
         }
         internal static void yeetem()
         {
+            try
+            {
+                //fuck you
+                GameObject.Destroy(GameObject.Find("LootSaberPreviewSaber"));
+            }
+            catch (Exception e) { Plugin.Log.Critical(e.ToString()); }
+
             foreach(GameObject asset in previewObjects)
             {
                 GameObject.Destroy(asset);

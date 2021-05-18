@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Random = UnityEngine.Random;
 using static LootSaber.CustomTypes;
 namespace LootSaber.Files
 {
@@ -29,14 +30,16 @@ namespace LootSaber.Files
                 Directory.CreateDirectory(Path.Combine(AssetCache, "Fonts"));
         }
 
-        internal static DownloadRequestResponse DownloadAsset(DownloadsDatabase db, Random rng)
+        internal static DownloadRequestResponse DownloadAsset(DownloadsDatabase db)
         {
             DownloadRequestResponse resp = new DownloadRequestResponse();
+            var rng = new Random();
+            
 
             Rarity rolledRarity = new Rarity();
             List<String> rolledType = new List<string>();
             int amountOfRolledType = 0;
-            switch (rng.Next(0, 5))
+            switch (Random.Range(0, 5))
             {
                 case 0:
                     rolledRarity = db.Tier1;
@@ -68,11 +71,10 @@ namespace LootSaber.Files
             int maxtype = 4;
             if (!AssetModDetection.MenuFonts)
                 maxtype = 3;
-            var a = rng.Next(0, maxtype);
+            var a = Random.Range(0, maxtype);
             if (a.Equals(rollcat1))
             {
-                rng = new Random(3294704);
-                a = rng.Next(0, maxtype);
+                a = Random.Range(0, maxtype);
             }
             rollcat1 = a;
             switch (a)
@@ -106,12 +108,13 @@ namespace LootSaber.Files
                     resp.assetType = "Menu Text Font";
                     break;
             }
-            var URL = rolledType.ElementAt(rng.Next(0, amountOfRolledType));
+            var URL = rolledType.ElementAt(Random.Range(0, amountOfRolledType));
 
             var client = new WebClient();
             string _realname = URL.Substring(URL.LastIndexOf("/") + 1).Replace("%20", " ");
             if (_realname.Contains("?"))
                 _realname = _realname.Substring(0, _realname.IndexOf("?"));
+            
             
 
             string fileSavePath = UnityGame.InstallPath + "\\" + folder + "\\" + _realname;
@@ -146,7 +149,7 @@ namespace LootSaber.Files
             Rarity rolledRarity = new Rarity();
             List<String> rolledType = new List<string>();
             int amountOfRolledType = 0;
-            switch (rng.Next(0, 5))
+            switch (Random.Range(0, 5))
             {
                 case 0:
                     rolledRarity = db.Tier1;
@@ -169,11 +172,10 @@ namespace LootSaber.Files
                     Plugin.Log.Info("Rolled Tier 5");
                     break;
             }
-            var a = rng.Next(0, 4);
+            var a = Random.Range(0, 4);
             if (a.Equals(rollcat1))
             {
-                rng = new Random(3294704);
-                a = rng.Next(0, 4);
+                a = Random.Range(0, 4);
             }
             rollcat1 = a;
             switch (a)
@@ -199,7 +201,7 @@ namespace LootSaber.Files
                     Plugin.Log.Info("Rolled Menu Font");
                     break;
             }
-            return rolledType.ElementAt(rng.Next(0, amountOfRolledType));
+            return rolledType.ElementAt(Random.Range(0, amountOfRolledType));
         }
 
         

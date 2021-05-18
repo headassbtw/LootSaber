@@ -9,6 +9,7 @@ using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.ViewControllers;
 using TMPro;
+using Button = UnityEngine.UI.Button;
 using static LootSaber.CustomTypes;
 using static LootSaber.Files.FileManager;
 using static LootSaber.UI.Asset_Viewing.AssetInstantiatePreviewing;
@@ -22,13 +23,13 @@ namespace LootSaber.UI.AssetPreviews
         [UIComponent("paneltop")] internal TextMeshProUGUI topPanel = new TextMeshProUGUI();
         [UIComponent("panelmid")] internal TextMeshProUGUI middlePanel = new TextMeshProUGUI();
         [UIComponent("panelbot")] internal TextMeshProUGUI bottomPanel = new TextMeshProUGUI();
-
+        [UIComponent("accept-button")] internal static Button acceptButton;
         internal static DownloadRequestResponse downloadRequest = new DownloadRequestResponse();
 
         internal static void Download()
         {
             var rnd = new Random();
-            downloadRequest = DownloadAsset(assetDB, new Random(rnd.Next()));
+            downloadRequest = DownloadAsset(assetDB);
             downloadRequest.client.DownloadProgressChanged += wc_progChange;
             downloadRequest.client.DownloadFileCompleted += wc_complete;
         }
@@ -40,7 +41,8 @@ namespace LootSaber.UI.AssetPreviews
         {
             Instance.topPanel.text = "Tier " + downloadRequest.tier.ToString();
             Instance.middlePanel.text = downloadRequest.assetType;
-            ShowPreviewAsset(downloadRequest, 1);
+            Instance.bottomPanel.text = downloadRequest.filePath.Substring(downloadRequest.filePath.LastIndexOf("\\") + 1);
+            ShowPreviewAsset(downloadRequest, 3);
         }
 
         internal static void StaticPP()

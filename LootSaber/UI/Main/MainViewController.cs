@@ -15,7 +15,10 @@ using TMPro;
 using static LootSaber.CustomTypes;
 using static LootSaber.Files.FileManager;
 using static LootSaber.UI.Asset_Viewing.AssetInstantiatePreviewing;
+using static LootSaber.UI.Asset_Viewing.FloatingUI;
 using LootSaber.UI.AssetPreviews;
+using UnityEngine;
+using LootSaber.UI.Asset_Viewing;
 
 namespace LootSaber.UI.ViewControllers
 {
@@ -32,19 +35,22 @@ namespace LootSaber.UI.ViewControllers
         {
             BaseGameUiHandler.Instance.PresentGameUI();
             yeetem();
-            Asset_Viewing.FloatingUI.unmiddle();
-            Asset_Viewing.FloatingUI.unPreviews();
+            FloatingUI.unmiddle();
+            FloatingUI.unPreviews();
         }
 
         [UIAction("download-button")]
         internal void DLButton()
         {
             yeetem();
-            var rnd = new Random();
+            var rnd = new System.Random();
+            FloatingUI.PLS.transform.SetPositionAndRotation(LeftP, Quaternion.Euler(30f, 0, 0));
             LeftPreviewViewController.Download();
             Task.Delay(51);
+            FloatingUI.PMS.transform.SetPositionAndRotation(MiddleP, Quaternion.Euler(30f, 0, 0));
             MiddlePreviewViewController.Download();
             Task.Delay(43);
+            FloatingUI.PRS.transform.SetPositionAndRotation(RightP, Quaternion.Euler(30f, 00, 0));
             RightPreviewViewController.Download();
             Task.Delay(27);
         }
