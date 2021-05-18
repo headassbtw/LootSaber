@@ -20,6 +20,7 @@
 		</horizontal>
 		<horizontal>
 			<primary-button on-click='download-button' text='download'/>
+			<button on-click='go-back' text='Back'/>
 		</horizontal>
 	</vertical>
 	

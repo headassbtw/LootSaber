@@ -24,6 +24,7 @@
 					<text text='10,000' font-size='4'/>
 				</horizontal>
 				<horizontal pref-width='40'>
+					<button text='Skip' active='false' id='skip-button' on-click='skip-animations'/>
 					<primary-button text='Loot' on-click='loot-button' active='false'/>
 					<button text='Loot' on-click='loot-button' active='true'/>
 				</horizontal>

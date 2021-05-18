@@ -48,11 +48,6 @@ namespace LootSaber
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
-        public void Init(IPALogger logger)
-        {
-            
-        }
-
         #region BSIPA Config
         //Uncomment to use BSIPA's config
         /*
@@ -68,11 +63,12 @@ namespace LootSaber
         [OnStart]
         public void OnApplicationStart()
         {
+            
+
             SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
             if (!Directory.Exists(Path.Combine(UnityGame.UserDataPath, "LootSaber")))
                 Directory.CreateDirectory(Path.Combine(UnityGame.UserDataPath, "LootSaber"));
-            if (!Directory.Exists(Files.FileManager.AssetCache))
-                Directory.CreateDirectory(Files.FileManager.AssetCache);
+            Files.FileManager.CreateFolders();
             if (!File.Exists(dataFilePath))
             {
                 using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("LootSaber.Data.DefaultPlayerData.txt"))
@@ -88,16 +84,14 @@ namespace LootSaber
             //Files.JsonReadWrite.SaveJson2(Path.Combine(UnityGame.UserDataPath, "LootSaber") + "\\yes.json");
             new GameObject("LootSaberController").AddComponent<LootSaberController>();
             AssetModDetection.DetectAssetMods();
-            if(!AssetModDetection.Sabers && !AssetModDetection.Notes && !AssetModDetection.Platforms && !AssetModDetection.MenuFonts) { }
-            else
-                UI.UICreator.CreateMenu();
 
         }
         private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene arg1)
         {
-            if (arg1.name.Contains("Menu") && !UI.XP.XPScreen.Instance) // Only run in menu scene
+            if (arg1.name.Contains("Menu")) // Only run in menu scene
             {
-                UI.XP.XPScreenStarter.yeet();
+                if(!UI.XP.XPScreen.Instance)
+                    UI.XP.XPScreenStarter.yeet();
             }
         }
         [OnExit]

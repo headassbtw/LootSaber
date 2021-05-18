@@ -14,6 +14,7 @@ using IPA.Utilities;
 using TMPro;
 using static LootSaber.CustomTypes;
 using static LootSaber.Files.FileManager;
+using static LootSaber.UI.Asset_Viewing.AssetInstantiatePreviewing;
 
 namespace LootSaber.UI.ViewControllers
 {
@@ -34,18 +35,28 @@ namespace LootSaber.UI.ViewControllers
         internal static DownloadRequestResponse Item2Request = new DownloadRequestResponse();
         internal static DownloadRequestResponse Item3Request = new DownloadRequestResponse();
 
+        [UIAction("go-back")]
+        internal void ReMenu()
+        {
+            BaseGameUiHandler.Instance.PresentGameUI();
+            yeetem();
+            UI.Asset_Viewing.FloatingUI.unmiddle();
+        }
+
         [UIAction("download-button")]
         internal void DLButton()
         {
-            Item1Request = DownloadAsset(assetDB, new Random(4352));
+            yeetem();
+            var rnd = new Random();
+            Item1Request = DownloadAsset(assetDB, new Random(rnd.Next()));
             Item1Request.client.DownloadProgressChanged += wc_progChange1;
             Item1Request.client.DownloadFileCompleted += wc_complete1;
             Task.Delay(51);
-            Item2Request = DownloadAsset(assetDB, new Random(6745));
+            Item2Request = DownloadAsset(assetDB, new Random(rnd.Next()));
             Item2Request.client.DownloadProgressChanged += wc_progChange2;
             Item2Request.client.DownloadFileCompleted += wc_complete2;
             Task.Delay(43);
-            Item3Request = DownloadAsset(assetDB, new Random(23456));
+            Item3Request = DownloadAsset(assetDB, new Random(rnd.Next()));
             Item3Request.client.DownloadProgressChanged += wc_progChange3;
             Item3Request.client.DownloadFileCompleted += wc_complete3;
             Task.Delay(27);
@@ -91,6 +102,7 @@ namespace LootSaber.UI.ViewControllers
         {
             setpanel(1, 1, "Tier " + Item1Request.tier.ToString());
             setpanel(2, 1, Item1Request.assetType);
+            ShowPreviewAsset(Item1Request, 1);
             if (e.Cancelled)
                 setpanel(3, 1, "Cancelled");
         }
@@ -98,6 +110,7 @@ namespace LootSaber.UI.ViewControllers
         {
             setpanel(1, 2, "Tier " + Item2Request.tier.ToString());
             setpanel(2, 2, Item2Request.assetType);
+            ShowPreviewAsset(Item2Request, 2);
             if (e.Cancelled)
                 setpanel(3, 2, "Cancelled");
         }
@@ -105,6 +118,7 @@ namespace LootSaber.UI.ViewControllers
         {
             setpanel(1, 3, "Tier " + Item3Request.tier.ToString());
             setpanel(2, 3, Item3Request.assetType);
+            ShowPreviewAsset(Item3Request, 3);
             if (e.Cancelled)
                 setpanel(3, 3, "Cancelled");
         }

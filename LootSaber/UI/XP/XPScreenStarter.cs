@@ -17,6 +17,7 @@ namespace LootSaber.UI.XP
         {
             var _xpv = BeatSaberUI.CreateViewController<XPScreen>();
             xpFloatingScreen.SetRootViewController(_xpv, animationType: AnimationType.None);
+            xpFloatingScreen.transform.SetParent(BaseGameUiHandler.Instance.GetUIParent());
         }
     }
 }

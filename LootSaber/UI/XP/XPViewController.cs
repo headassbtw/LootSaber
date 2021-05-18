@@ -20,6 +20,7 @@ using UnityEngine.UI;
 using System.IO;
 using static LootSaber.CustomTypes;
 using System.Threading.Tasks;
+using LootSaber.UI.Asset_Viewing;
 
 namespace LootSaber.UI.XP
 {
@@ -27,6 +28,7 @@ namespace LootSaber.UI.XP
     [HotReload(RelativePathToLayout = @"..\UI\XP\XPView.bsml")]
     internal class XPScreen : BSMLResourceViewController
     {
+        private bool back = true;
         public override string ResourceName => "LootSaber.UI.XP.XPView.bsml";
         internal static XPScreen Instance { get; private set; }
         [UIComponent("xp-amount")] private TextMeshProUGUI xpAmount;
@@ -38,6 +40,11 @@ namespace LootSaber.UI.XP
         internal void OpenMainUI()
         {
 
+            if(BaseGameUiHandler.Instance == null)
+                BaseGameUiHandler.Instance = new BaseGameUiHandler(GameObject.Find("ScreenSystem").GetComponent<HierarchyManager>());
+
+            BaseGameUiHandler.Instance.DismissGameUI();
+            FloatingUI.middle();
         }
         internal void ClearBonuses()
         {

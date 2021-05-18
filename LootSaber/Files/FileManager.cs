@@ -15,6 +15,20 @@ namespace LootSaber.Files
         internal static DownloadsDatabase assetDB;
         internal static int rollcat1;
 
+        internal static void CreateFolders()
+        {
+            if (!Directory.Exists(AssetCache))
+                Directory.CreateDirectory(AssetCache);
+            if (!Directory.Exists(Path.Combine(AssetCache, "CustomSabers")))
+                Directory.CreateDirectory(Path.Combine(AssetCache, "CustomSabers"));
+            if (!Directory.Exists(Path.Combine(AssetCache, "CustomNotes")))
+                Directory.CreateDirectory(Path.Combine(AssetCache, "CustomNotes"));
+            if (!Directory.Exists(Path.Combine(AssetCache, "CustomPlatforms")))
+                Directory.CreateDirectory(Path.Combine(AssetCache, "CustomPlatforms"));
+            if (!Directory.Exists(Path.Combine(AssetCache, "Fonts")))
+                Directory.CreateDirectory(Path.Combine(AssetCache, "Fonts"));
+        }
+
         internal static DownloadRequestResponse DownloadAsset(DownloadsDatabase db, Random rng)
         {
             DownloadRequestResponse resp = new DownloadRequestResponse();
@@ -66,28 +80,28 @@ namespace LootSaber.Files
                 case 0:
                     rolledType = rolledRarity.Sabers;
                     amountOfRolledType = rolledType.Count;
-                    folder = "CustomSabers";
+                    folder = "UserData\\LootSaber\\Asset Cache\\CustomSabers";
                     Plugin.Log.Info("Rolled Saber");
                     resp.assetType = "Saber";
                     break;
                 case 1:
                     rolledType = rolledRarity.Notes;
                     amountOfRolledType = rolledType.Count;
-                    folder = "CustomNotes";
+                    folder = "UserData\\LootSaber\\Asset Cache\\CustomNotes";
                     Plugin.Log.Info("Rolled Note");
                     resp.assetType = "Note";
                     break;
                 case 2:
                     rolledType = rolledRarity.Platforms;
                     amountOfRolledType = rolledType.Count;
-                    folder = "CustomPlatforms";
+                    folder = "UserData\\LootSaber\\Asset Cache\\CustomPlatforms";
                     Plugin.Log.Info("Rolled Platform");
                     resp.assetType = "Platform";
                     break;
                 case 3:
                     rolledType = rolledRarity.MenuFonts;
                     amountOfRolledType = rolledType.Count;
-                    folder = "UserData\\CustomMenuText\\Fonts";
+                    folder = "UserData\\LootSaber\\Asset Cache\\Fonts";
                     Plugin.Log.Info("Rolled Menu Font");
                     resp.assetType = "Menu Text Font";
                     break;
@@ -95,7 +109,7 @@ namespace LootSaber.Files
             var URL = rolledType.ElementAt(rng.Next(0, amountOfRolledType));
 
             var client = new WebClient();
-            string _realname = URL.Substring(URL.LastIndexOf("/")).Replace("%20", " ");
+            string _realname = URL.Substring(URL.LastIndexOf("/") + 1).Replace("%20", " ");
             if (_realname.Contains("?"))
                 _realname = _realname.Substring(0, _realname.IndexOf("?"));
             
