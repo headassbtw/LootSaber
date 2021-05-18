@@ -37,6 +37,7 @@ namespace LootSaber
         public enum bonus
         {
             FC,
+            SSS,
             SS,
             S,
             PB,
@@ -60,6 +61,11 @@ namespace LootSaber
                         this.name = "Full Combo";
                         this.imagePath = "LootSaber.UI.BonusIcons.FC.png";
                         this.scoreBonus = 1000;
+                        break;
+                    case bonus.SSS:
+                        this.name = "HOW";
+                        this.imagePath = "LootSaber.UI.BonusIcons.SSS.png";
+                        this.scoreBonus = 50000;
                         break;
                     case bonus.SS:
                         this.name = "SS Rank";

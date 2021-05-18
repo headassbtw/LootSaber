@@ -33,7 +33,7 @@ namespace LootSaber
 
             var bonuses = new List<AfterLevelBonus>();
 
-
+            
 
             if (compres.levelEndStateType == LevelCompletionResults.LevelEndStateType.Failed)
                 bonuses.Add(new AfterLevelBonus(bonus.YT));
@@ -41,12 +41,14 @@ namespace LootSaber
                 _xpIncrease = (int)Math.Round((decimal)compres.modifiedScore / 40);
             if (personalBest && !__instance.practice)
                 bonuses.Add(new AfterLevelBonus(bonus.PB));
-            if (rank.Equals("S") && !__instance.practice)
+            if (compres.rank.Equals(RankModel.Rank.S) && !__instance.practice)
                 bonuses.Add(new AfterLevelBonus(bonus.S));
             if (compres.fullCombo && !__instance.practice)
                 bonuses.Add(new AfterLevelBonus(bonus.FC));
-            if (rank.Equals("SS") && !__instance.practice)
+            if (compres.rank.Equals(RankModel.Rank.SS) && !__instance.practice)
                 bonuses.Add(new AfterLevelBonus(bonus.SS));
+            if (compres.rank.Equals(RankModel.Rank.SSS) && !__instance.practice)
+                bonuses.Add(new AfterLevelBonus(bonus.SSS));
             UI.XP.XPScreen.FuckWithScoreAndLevel(_xpIncrease,bonuses.BonusScore());
             UI.XP.XPScreen.Instance.AddBonuses(bonuses);
         }
