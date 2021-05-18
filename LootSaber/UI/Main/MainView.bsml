@@ -1,9 +1,24 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
 
-	<vertical>
-		<horizontal>
-			<primary-button on-click='download-button' text='download'/>
-			<button on-click='go-back' text='Back'/>
+	<vertical pref-height='20'>
+		<horizontal pref-width='60' pref-height='10'>
+			<horizontal pref-width='30'>
+				<text text='Pending Boxes:'/>
+			</horizontal>
+			<horizontal pref-width='10'>
+				<text text='~pendingNumber'/>
+			</horizontal>
+			<horizontal pref-width='20'>
+				
+			</horizontal>
+		</horizontal>
+		<horizontal pref-width='60' pref-height='10'>
+			<horizontal pref-width='30'>
+				<primary-button on-click='download-button' text='download' id='dl-button'/>
+			</horizontal>
+			<horizontal pref-width='30'>
+				<button on-click='go-back' text='Back'/>
+			</horizontal>
 		</horizontal>
 	</vertical>
 	

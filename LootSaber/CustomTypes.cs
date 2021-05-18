@@ -17,6 +17,7 @@ namespace LootSaber
             public bool MenuFonts;
             public int XP;
             public int Level;
+            public int PendingBoxes;
         }
         public struct Rarity
         {

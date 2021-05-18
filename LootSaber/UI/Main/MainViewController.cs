@@ -20,6 +20,7 @@ using LootSaber.UI.XP;
 using LootSaber.UI.AssetPreviews;
 using UnityEngine;
 using LootSaber.UI.Asset_Viewing;
+using UnityEngine.UI;
 
 namespace LootSaber.UI.ViewControllers
 {
@@ -30,6 +31,17 @@ namespace LootSaber.UI.ViewControllers
         internal static DownloadRequestResponse Item1Request = new DownloadRequestResponse();
         internal static DownloadRequestResponse Item2Request = new DownloadRequestResponse();
         internal static DownloadRequestResponse Item3Request = new DownloadRequestResponse();
+
+        [UIComponent("dl-button")] internal Button DlButton;
+        [UIValue("pendingNumber")]
+        internal string PendingNumber
+        {
+            get => Data.Player.currentData.PendingBoxes.ToString();
+            set
+            {
+                Data.Player.currentData.PendingBoxes = Int32.Parse(value);
+            }
+        }
 
         [UIAction("go-back")]
         internal void ReMenu()

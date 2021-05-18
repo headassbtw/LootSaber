@@ -15,7 +15,7 @@ namespace LootSaber.UI.Asset_Viewing
 {
     class FloatingUI
     {
-        internal static FloatingScreen middleScreen = FloatingScreen.CreateFloatingScreen(new Vector2(100, 20), false, new Vector3(0, 0.4f, 2.75f), Quaternion.Euler(65f, 0, 0), 0f, true);
+        internal static FloatingScreen middleScreen = FloatingScreen.CreateFloatingScreen(new Vector2(60, 20), false, new Vector3(0, 0.4f, 2.75f), Quaternion.Euler(65f, 0, 0), 0f, true);
 
         internal static Vector3 LeftP = new Vector3(-0.65f, 0.87f, 3.5f);
         internal static Vector3 MiddleP = new Vector3(0, 0.87f, 3.5f);

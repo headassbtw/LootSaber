@@ -31,8 +31,22 @@ namespace LootSaber.UI.XP
         internal static bool uh = false;
         public override string ResourceName => "LootSaber.UI.XP.XPView.bsml";
         internal static XPScreen Instance { get; private set; }
-        [UIComponent("xp-amount")] private TextMeshProUGUI xpAmount;
-        [UIComponent("level-number")] private TextMeshProUGUI levelNumber;
+        [UIValue("xp-amount")] private string xpAmount
+        {
+            get => Data.Player.currentData.XP.ToString();
+            set
+            {
+                Data.Player.currentData.XP = Int32.Parse(value);
+            }
+        }
+        [UIValue("level-number")] private string levelNumber
+        {
+            get => Data.Player.currentData.Level.ToString();
+            set
+            {
+                Data.Player.currentData.Level = Int32.Parse(value);
+            }
+        }
 
         [UIComponent("bonuses-list")] public CustomListTableData bonusList = new CustomListTableData();
 
@@ -84,7 +98,8 @@ namespace LootSaber.UI.XP
                 int sc = currentScore + score + bonusScore;
                 int levelsplus = (int)Mathf.Floor(sc / 1000000);
                 currentLevel += levelsplus;
-                currentScore = sc - levelsplus;
+                currentScore = sc - (levelsplus * 1000000);
+                Data.Player.currentData.PendingBoxes += levelsplus;
             }
             else
             {
@@ -94,21 +109,12 @@ namespace LootSaber.UI.XP
 
             Data.Player.currentData.XP = currentScore;
             Data.Player.currentData.Level = currentLevel;
-            Instance.refreshPlayerData();
-        }
-
-        internal void refreshPlayerData()
-        {
-            xpAmount.text = Data.Player.currentData.XP.ToString();
-            levelNumber.text = Data.Player.currentData.Level.ToString();
         }
 
         [UIAction("#post-parse")]
         internal void Init()
         {
             Instance = this;
-
-            refreshPlayerData();
         }
 
     }
