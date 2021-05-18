@@ -13,6 +13,8 @@ using Button = UnityEngine.UI.Button;
 using static LootSaber.CustomTypes;
 using static LootSaber.Files.FileManager;
 using static LootSaber.UI.Asset_Viewing.AssetInstantiatePreviewing;
+using System.IO;
+using IPA.Utilities;
 
 namespace LootSaber.UI.AssetPreviews
 {
@@ -23,26 +25,33 @@ namespace LootSaber.UI.AssetPreviews
         [UIComponent("paneltop")] internal TextMeshProUGUI topPanel = new TextMeshProUGUI();
         [UIComponent("panelmid")] internal TextMeshProUGUI middlePanel = new TextMeshProUGUI();
         [UIComponent("panelbot")] internal TextMeshProUGUI bottomPanel = new TextMeshProUGUI();
-        [UIComponent("accept-button")] internal static Button acceptButton;
+        [UIComponent("accept-button")] internal Button acceptButton;
         internal static DownloadRequestResponse downloadRequest = new DownloadRequestResponse();
 
         internal static void Download()
         {
+            Instance.DL();
+        }
+
+        internal void DL()
+        {
+            acceptButton.interactable = false;
             var rnd = new Random();
             downloadRequest = DownloadAsset(assetDB);
             downloadRequest.client.DownloadProgressChanged += wc_progChange;
             downloadRequest.client.DownloadFileCompleted += wc_complete;
         }
-        static void wc_progChange(object sender, DownloadProgressChangedEventArgs e)
+        void wc_progChange(object sender, DownloadProgressChangedEventArgs e)
         {
             Instance.middlePanel.text = e.ProgressPercentage.ToString() + "%";
         }
-        static void wc_complete(object sender, AsyncCompletedEventArgs e)
+        void wc_complete(object sender, AsyncCompletedEventArgs e)
         {
             Instance.topPanel.text = "Tier " + downloadRequest.tier.ToString();
             Instance.middlePanel.text = downloadRequest.assetType;
             Instance.bottomPanel.text = downloadRequest.filePath.Substring(downloadRequest.filePath.LastIndexOf("\\") + 1);
             ShowPreviewAsset(downloadRequest, 3);
+            acceptButton.interactable = true;
         }
 
         internal static void StaticPP()
@@ -60,7 +69,7 @@ namespace LootSaber.UI.AssetPreviews
         [UIAction("accept-asset")]
         internal void AcceptAsset()
         {
-
+            File.Copy(downloadRequest.filePath, UnityGame.InstallPath + "\\" + downloadRequest.filePath.Substring(downloadRequest.filePath.IndexOf("Asset Cache\\") + 12));
         }
     }
 }
