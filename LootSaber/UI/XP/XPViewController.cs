@@ -18,6 +18,7 @@ using BeatSaberMarkupLanguage.ViewControllers;
 using BeatSaberMarkupLanguage.Components;
 using UnityEngine.UI;
 using System.IO;
+using static LootSaber.Extensions.MovementExtensions;
 using static LootSaber.CustomTypes;
 using System.Threading.Tasks;
 using LootSaber.UI.Asset_Viewing;
@@ -28,6 +29,8 @@ namespace LootSaber.UI.XP
     [HotReload(RelativePathToLayout = @"..\UI\XP\XPView.bsml")]
     internal class XPScreen : BSMLResourceViewController
     {
+        public static readonly int LevelMaxScore = 1000000;
+
         internal static bool uh = false;
         public override string ResourceName => "LootSaber.UI.XP.XPView.bsml";
         internal static XPScreen Instance { get; private set; }
@@ -45,6 +48,23 @@ namespace LootSaber.UI.XP
             set
             {
                 Data.Player.currentData.Level = Int32.Parse(value);
+            }
+        }
+
+        private int _Level
+        {
+            get => Int32.Parse(levelNumber);
+            set
+            {
+                levelNumber = value.ToString();
+            }
+        }
+        private int _XP
+        {
+            get => Int32.Parse(xpAmount);
+            set
+            {
+                xpAmount = value.ToString();
             }
         }
 
@@ -92,24 +112,30 @@ namespace LootSaber.UI.XP
         internal static void FuckWithScoreAndLevel(int score, int bonusScore)
         {
             Task.Delay(100);
-            int currentScore = Data.Player.currentData.XP;
-            int currentLevel = Data.Player.currentData.Level;
-            if(currentScore + score + bonusScore > 1000000)
+            if(Instance._XP + score + bonusScore > LevelMaxScore)
             {
-                int sc = currentScore + score + bonusScore;
-                int levelsplus = (int)Mathf.Floor(sc / 1000000);
-                currentLevel += levelsplus;
-                currentScore = sc - (levelsplus * 1000000);
+                int sc = Instance._XP + score + bonusScore;
+                int levelsplus = (int)Mathf.Floor(sc / LevelMaxScore);
+
+                for (int i = 0; i < levelsplus; i++)
+                {
+                    Instance._XP.GoUp(LevelMaxScore, 1 - (Instance._XP / LevelMaxScore));
+                    //do some fancy level up anim here, but i'm too lazy to do it atm so i'll just delay
+                    Task.Delay(100);
+                    Instance._XP = 0;
+                }
+                Instance._XP.GoUp(sc - (levelsplus * LevelMaxScore), 1 - (sc - (levelsplus * LevelMaxScore)/LevelMaxScore));
+                Instance._Level += levelsplus;
+                Instance._XP = sc - (levelsplus * LevelMaxScore);
                 Data.Player.currentData.PendingBoxes += levelsplus;
             }
             else
             {
-                currentScore = (currentScore + score + bonusScore);
+                Instance._XP.GoUp((Instance._XP + score + bonusScore), 1 - (Instance._XP / LevelMaxScore));
             }
-            //eventually do some fancy UI progression and effects woo, but for now just snap it
 
-            Data.Player.currentData.XP = currentScore;
-            Data.Player.currentData.Level = currentLevel;
+            Data.Player.currentData.XP = Instance._XP;
+            Data.Player.currentData.Level = Instance._Level;
         }
 
         [UIAction("#post-parse")]

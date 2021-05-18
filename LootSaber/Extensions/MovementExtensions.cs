@@ -9,6 +9,7 @@ namespace LootSaber.Extensions
 {
     internal static class MovementExtensions
     {
+        #region GameObject movement
         public static void Move(this Transform transform, Vector3 newpos, float time = 1, EasingFunction.Ease easing = EasingFunction.Ease.Linear)
         {
             LootSaberController.Instance.StartCoroutine(Mover(transform, newpos, time, easing));
@@ -37,7 +38,30 @@ namespace LootSaber.Extensions
                 yield return null;
             }
         }
+        #endregion
+        public static void GoUp(this float value, float goal, float seconds = 1, EasingFunction.Ease easing = EasingFunction.Ease.Linear)
+        {
+            LootSaberController.Instance.StartCoroutine(Upper(value, goal, seconds, easing));
+        }
+        public static void GoUp(this int value, int goal, float seconds = 1, EasingFunction.Ease easing = EasingFunction.Ease.Linear)
+        {
+            LootSaberController.Instance.StartCoroutine(Upper(value, goal, seconds, easing));
+        }
+        public static IEnumerator Upper(float value, float goal, float seconds = 1, EasingFunction.Ease easing = EasingFunction.Ease.Linear)
+        {
+            float orig = value;
+            float i = 0.0f;
+            float sT = Time.time;
+            while (i < 1.0f)
+            {
+                i = (Time.time - sT) / (seconds);
 
+                EasingFunction.Ease ease = easing;
+                EasingFunction.Function func = EasingFunction.GetEasingFunction(ease);
 
+                value = func(orig, goal, i);
+                yield return null;
+            }
+        }
     }
 }
