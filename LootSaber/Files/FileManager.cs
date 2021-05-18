@@ -26,8 +26,8 @@ namespace LootSaber.Files
                 Directory.CreateDirectory(Path.Combine(AssetCache, "CustomNotes"));
             if (!Directory.Exists(Path.Combine(AssetCache, "CustomPlatforms")))
                 Directory.CreateDirectory(Path.Combine(AssetCache, "CustomPlatforms"));
-            if (!Directory.Exists(Path.Combine(AssetCache, "Fonts")))
-                Directory.CreateDirectory(Path.Combine(AssetCache, "Fonts"));
+            if (!Directory.Exists(Path.Combine(AssetCache, "UserData", "CustomMenuText","Fonts")))
+                Directory.CreateDirectory(Path.Combine(AssetCache, "UserData", "CustomMenuText", "Fonts"));
         }
 
         internal static DownloadRequestResponse DownloadAsset(DownloadsDatabase db)
@@ -103,7 +103,7 @@ namespace LootSaber.Files
                 case 3:
                     rolledType = rolledRarity.MenuFonts;
                     amountOfRolledType = rolledType.Count;
-                    folder = "UserData\\LootSaber\\Asset Cache\\Fonts";
+                    folder = "UserData\\LootSaber\\Asset Cache\\UserData\\CustomMenuText\\Fonts";
                     Plugin.Log.Info("Rolled Menu Font");
                     resp.assetType = "Menu Text Font";
                     break;
