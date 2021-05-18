@@ -79,11 +79,12 @@ namespace LootSaber.UI.XP
             Task.Delay(100);
             int currentScore = Data.Player.currentData.XP;
             int currentLevel = Data.Player.currentData.Level;
-
             if(currentScore + score + bonusScore > 10000)
             {
-                currentLevel += 1;
-                currentScore = (currentScore + score + bonusScore) - 10000;
+                int sc = currentScore + score + bonusScore;
+                int levelsplus = (int)Mathf.Floor(sc / 10000);
+                currentLevel += levelsplus;
+                currentScore = sc - levelsplus;
             }
             else
             {
