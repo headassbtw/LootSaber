@@ -62,5 +62,13 @@ namespace LootSaber
             
         }
     }
+    [HarmonyPatch(typeof(ResultsViewController), "RestartButtonPressed")]
+    static class ScoreRestartPatch
+    {
+        static void Prefix(ResultsViewController __instance)
+        {
+            UI.XP.XPScreen.Instance.ClearBonuses();
 
+        }
+    }
 }
