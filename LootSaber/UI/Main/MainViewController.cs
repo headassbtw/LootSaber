@@ -11,6 +11,7 @@ using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.ViewControllers;
 using IPA.Utilities;
+using LootSaber.Files;
 using TMPro;
 using static LootSaber.CustomTypes;
 using static LootSaber.Files.FileManager;
@@ -50,6 +51,7 @@ namespace LootSaber.UI.ViewControllers
 
         internal static void CheckPending()
         {
+            Downloading.CheckDownloadedFiles();
             DlButton.interactable = (Data.Player.currentData.PendingBoxes > 0);
         }
 

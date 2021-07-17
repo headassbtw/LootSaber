@@ -16,6 +16,7 @@ using static LootSaber.Files.FileManager;
 using static LootSaber.UI.Asset_Viewing.AssetInstantiatePreviewing;
 using System.IO;
 using IPA.Utilities;
+using LootSaber.ModelSaber;
 
 namespace LootSaber.UI.AssetPreviews
 {
@@ -38,23 +39,6 @@ namespace LootSaber.UI.AssetPreviews
         {
             acceptButton.interactable = false;
             var rnd = new Random();
-            downloadRequest = DownloadAsset(assetDB);
-            downloadRequest.client.DownloadProgressChanged += wc_progChange;
-            downloadRequest.client.DownloadFileCompleted += wc_complete;
-        }
-        void wc_progChange(object sender, DownloadProgressChangedEventArgs e)
-        {
-            Instance.middlePanel.text = e.ProgressPercentage.ToString() + "%";
-        }
-        void wc_complete(object sender, AsyncCompletedEventArgs e)
-        {
-            Instance.topPanel.text = "Tier " + downloadRequest.tier.ToString();
-            Instance.middlePanel.text = downloadRequest.assetType;
-            Instance.bottomPanel.text = downloadRequest.filePath.Substring(downloadRequest.filePath.LastIndexOf("\\") + 1);
-            ShowPreviewAsset(downloadRequest, 1);
-            acceptButton.interactable = true;
-            UI.ViewControllers.MainViewController.Asset1Complete = true;
-            UI.ViewControllers.MainViewController.checkButtonEnable();
         }
 
         internal static void StaticPP()
@@ -80,7 +64,7 @@ namespace LootSaber.UI.AssetPreviews
         [UIAction("accept-asset")]
         internal void AcceptAsset()
         {
-            File.Copy(downloadRequest.filePath, UnityGame.InstallPath + "\\" + downloadRequest.filePath.Substring(downloadRequest.filePath.IndexOf("Asset Cache\\") + 12));
+            
         }
     }
 }

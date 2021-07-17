@@ -152,8 +152,12 @@
     <Compile Include="Extensions\MovementExtensions.cs" />
     <Compile Include="Extensions\TextFormattingExtensions.cs" />
     <Compile Include="Extensions\TextureExtensions.cs" />
+    <Compile Include="Files\Downloading.cs" />
     <Compile Include="Files\FileManager.cs" />
     <Compile Include="Files\JsonReadWrite.cs" />
+    <Compile Include="ModelSaber\ModelSaberEntry.cs" />
+    <Compile Include="ModelSaber\ModelSaberSearch.cs" />
+    <Compile Include="ModelSaber\ModelSaberUtils.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="LootSaberController.cs" />

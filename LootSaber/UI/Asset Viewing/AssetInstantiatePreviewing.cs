@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using LootSaber.Files;
 using TMPro;
 using UnityEngine;
 using static LootSaber.CustomTypes;
@@ -16,25 +18,26 @@ namespace LootSaber.UI.Asset_Viewing
         internal static Vector3 right = new Vector3(0.65f, 1.5f, 4.0f);
         static List<GameObject> previewObjects = new List<GameObject>();
 
-        internal static void ShowPreviewAsset(DownloadRequestResponse downloadRequest, int position)
+        internal static void ShowPreviewAsset(ModelSaber.ModelSaberEntry asset, int position)
         {
-            switch (downloadRequest.assetType)
+            var prv = Downloading.DownloadModelAsPreview(asset);
+            while (!prv.IsCompleted)
+                Thread.Sleep(10);
+            switch (asset.Type.ToLower())
             {
-                case "Menu Text Font":
-                    previewObjects.Add(ShowMenuFont(downloadRequest, position));
+                
+                case "saber":
+                    previewObjects.Add(ShowSaber(prv.Result, position));
                     break;
-                case "Saber":
-                    previewObjects.Add(ShowSaber(downloadRequest, position));
-                    break;
-                case "Note":
-                    previewObjects.Add(ShowNote(downloadRequest, position));
+                case "bloq":
+                    previewObjects.Add(ShowNote(prv.Result, position));
                     break;
             }
         }
 
-        internal static GameObject ShowNote(DownloadRequestResponse downloadRequest, int position)
+        internal static GameObject ShowNote(AssetBundle bundle, int position)
         {
-            AssetBundle ab = AssetBundle.LoadFromFile(downloadRequest.filePath);
+            AssetBundle ab = bundle;
             GameObject note = ab.LoadAsset<GameObject>("assets/_customnote.prefab");
             ab.Unload(false);
             var NoteRight = note.transform.Find("NoteRight").gameObject;
@@ -59,13 +62,13 @@ namespace LootSaber.UI.Asset_Viewing
             return nnote;
         }
 
-        internal static GameObject ShowSaber(DownloadRequestResponse downloadRequest, int position)
+        internal static GameObject ShowSaber(AssetBundle bundle, int position)
         {
             AssetBundle ab = null;
             GameObject Sabers = null;
             try
             {
-                ab = AssetBundle.LoadFromFile(downloadRequest.filePath);
+                ab = bundle;
                 Sabers = ab.LoadAsset<GameObject>("_CustomSaber");
                 //THIS IS HOW YOU DO SHIT WITH ASSETBUNDLES YOU FUCK
                 ab.Unload(false);
@@ -99,44 +102,7 @@ namespace LootSaber.UI.Asset_Viewing
             return saber;
         }
 
-        internal static GameObject ShowMenuFont(DownloadRequestResponse downloadRequest, int position)
-        {
-            AssetBundle fontBundle = AssetBundle.LoadFromFile(downloadRequest.filePath);
-            GameObject textPrefab = fontBundle.LoadAsset<GameObject>("Text");
-            GameObject textObj = GameObject.Instantiate(textPrefab);
-            fontBundle.Unload(false);
-            textObj.name = "LootSaberPreviewFont";
-            textObj.SetActive(false);
-            var Text = textObj.GetComponent<TextMeshPro>();
-            Text.alignment = TextAlignmentOptions.Center;
-            Text.fontSize = 2;
-            Text.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 2f);
-            Text.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 2f);
-            Text.richText = true;
-            textObj.transform.localScale *= 1.0f;
-            Text.overflowMode = TextOverflowModes.Overflow;
-            Text.enableWordWrapping = false;
-            Text.text = "ABG";
-            switch (position)
-            {
-                case 1:
-                    textObj.transform.position = left;
-                    textObj.gameObject.transform.SetParent(FloatingUI.PLS.transform);
-                    break;
-                case 2:
-                    textObj.transform.position = middle;
-                    textObj.gameObject.transform.SetParent(FloatingUI.PMS.transform);
-                    break;
-                case 3:
-                    textObj.transform.position = right;
-                    textObj.gameObject.transform.SetParent(FloatingUI.PRS.transform);
-                    break;
-            }
-            textObj.SetActive(true);
-            
-            textObj.transform.SetParent(XP.XPScreen.Instance.transform);
-            return textObj;
-        }
+        
         internal static void yeetem()
         {
             try
