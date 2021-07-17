@@ -12,8 +12,6 @@ using UnityEngine.SceneManagement;
 using IPALogger = IPA.Logging.Logger;
 using HarmonyLib;
 using System.Reflection;
-using SiraUtil;
-using SiraUtil.Zenject;
 using LootSaber.UI;
 using Conf = IPA.Config.Config;
 using IPA.Loader;
@@ -26,7 +24,6 @@ namespace LootSaber
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
         internal static Harmony harmony;
-        internal static Zenjector zenjector { get; private set; }
 
         internal static string dataFilePath = Path.Combine(UnityGame.UserDataPath, "LootSaber") + "\\playerdata";
 
