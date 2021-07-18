@@ -77,7 +77,8 @@ namespace LootSaber.UI.ViewControllers
         [UIAction("download-button")]
         internal void DLButton()
         {
-            Data.Player.currentData.PendingBoxes -= 1;
+            LootSaber.Files.Downloading.CheckDownloadedFiles();
+            /*Data.Player.currentData.PendingBoxes -= 1;
             
             CheckPending();
             yeetem();
@@ -86,14 +87,15 @@ namespace LootSaber.UI.ViewControllers
             Asset3Complete = false;
             var rnd = new System.Random();
             FloatingUI.PLS.transform.SetPositionAndRotation(LeftP, Quaternion.Euler(30f, 0, 0));
+            */
             LeftPreviewViewController.Download();
-            Task.Delay(51);
+            /*Task.Delay(51);
             FloatingUI.PMS.transform.SetPositionAndRotation(MiddleP, Quaternion.Euler(30f, 0, 0));
             MiddlePreviewViewController.Download();
             Task.Delay(43);
             FloatingUI.PRS.transform.SetPositionAndRotation(RightP, Quaternion.Euler(30f, 00, 0));
             RightPreviewViewController.Download();
-            Task.Delay(27);
+            Task.Delay(27);*/
         }
     }
 }

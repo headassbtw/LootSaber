@@ -50,7 +50,6 @@ namespace LootSaber.UI.AssetPreviews
             Instance.topPanel.text = "Tier " + downloadRequest.tier.ToString();
             Instance.middlePanel.text = downloadRequest.assetType;
             Instance.bottomPanel.text = downloadRequest.filePath.Substring(downloadRequest.filePath.LastIndexOf("\\") + 1);
-            ShowPreviewAsset(downloadRequest, 2);
             acceptButton.interactable = true;
             UI.ViewControllers.MainViewController.Asset2Complete = true;
             UI.ViewControllers.MainViewController.checkButtonEnable();
